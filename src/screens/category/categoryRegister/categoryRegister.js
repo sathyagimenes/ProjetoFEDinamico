@@ -17,7 +17,6 @@ const pName = document.createElement('p');
 const inputName = document.createElement('input');
 const divBtn = document.createElement('div');
 const btnInsert = document.createElement('button');
-const btnClear = document.createElement('button');
 
 title.textContent = 'Cadastro de Categorias';
 pId.textContent = 'Código';
@@ -27,7 +26,6 @@ pName.textContent = 'Nome';
 inputName.name = 'name';
 inputName.type = 'text';
 btnInsert.textContent = 'Cadastrar';
-btnClear.textContent = 'Limpar';
 
 body.appendChild(main);
 main.appendChild(title);
@@ -40,7 +38,6 @@ divName.appendChild(pName);
 divName.appendChild(inputName);
 form.appendChild(divBtn);
 divBtn.appendChild(btnInsert);
-divBtn.appendChild(btnClear);
 
 function register (inId, inName) {
 	const newObj = { id: inId, name: inName };
