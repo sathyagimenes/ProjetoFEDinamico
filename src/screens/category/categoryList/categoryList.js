@@ -1,3 +1,12 @@
+// for (const file of [
+//     'common/setAttributes.js'
+// ]) {
+//     const script = document.createElement('script')
+//     script.setAttribute('src', `./${file}`)
+
+//     document.body.appendChild(script)
+// }
+
 const tableHeadNames = ['ID', 'Categoria']
 
 let categories= [
@@ -13,72 +22,86 @@ let categories= [
 
 /* Listagem */
 const main = document.createElement('main');
-const tableDiv = document.createElement('div');
-const table = document.createElement('table');
-const thead = document.createElement('thead');
-const tbody = document.createElement('tbody');
+const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
 // const select = document.createElement('select');
-tableDiv.setAttribute('id', 'table');   
 
+function CreateTable (row, tableHead) {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
 
-tableHeadNames.forEach(item => {
-    const th = document.createElement('th')
-    th.innerText = item;
-    thead.appendChild(th);
-    // const option = document.createElement('option')
-    // option.innerText = item;
-    // select.appendChild(option);
-});
+    tableHead.forEach(item => {
+        const th = document.createElement('th')
+        th.innerText = item;
+        thead.appendChild(th);
+        // const option = document.createElement('option')
+        // option.innerText = item;
+        // select.appendChild(option);
+    });
 
-for (let i = 0; i < categories.length; i++) {
-    const tr = document.createElement("tr");
-    for(let j = 0; j < tableHeadNames.length; j++) {
-        const t = document.createElement("td");
-        const texto = document.createTextNode(Object.values(categories[i])[j]);
-        t.appendChild(texto);
-        tr.appendChild(t);
+    for (let i = 0; i < row.length; i++) {
+        const tr = document.createElement("tr");
+        for(let j = 0; j < tableHead.length; j++) {
+            const td = document.createElement("td");
+            const texto = document.createTextNode(Object.values(row[i])[j]);
+            td.appendChild(texto);
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+
     }
-    tbody.appendChild(tr);
-}
 
-table.appendChild(thead)
-table.appendChild(tbody)
-tableDiv.appendChild(table)
+    table.append(thead, tbody)
+
+    return table;
+};
+
+const newTable = CreateTable(categories, tableHeadNames)
+tableDiv.appendChild(newTable)
 main.appendChild(tableDiv)
 
 /* Botões e busca */
-const asideDiv = document.createElement('div');
-asideDiv.setAttribute('id', 'aside');
-const searchDiv = document.createElement('div');
-searchDiv.setAttribute('id', 'search');
-const editDiv = document.createElement('div');
-editDiv.setAttribute('id', 'edit');
-const input = document.createElement('input');
-input.setAttribute('placeholder', 'Buscar palavra-chave...')
-const btnSearch = document.createElement('button');
-btnSearch.textContent = 'Buscar';
-const btnEdit = document.createElement('button');
-btnEdit.textContent = 'Editar';
-const btnDelete = document.createElement('button');
-btnDelete.textContent = 'Remover';
 
-// asideDiv.appendChild(select)
-searchDiv.appendChild(input)
-searchDiv.appendChild(btnSearch)
-asideDiv.appendChild(searchDiv)
-editDiv.appendChild(btnEdit)
-editDiv.appendChild(btnDelete)
-asideDiv.appendChild(editDiv)
+function CreateButton (btnText) {
+   const newButton = document.createElement('button');
+   newButton.textContent = btnText;
+   return newButton;
+}
+
+function CreateElementWithAttribute (elName, attrType = '', attrName = '') {
+    const newElement = document.createElement(elName);
+    newElement.setAttribute(attrType, attrName)
+    return newElement;
+}
+
+const asideDiv = CreateElementWithAttribute('div', 'id', 'aside')
+const searchDiv = CreateElementWithAttribute('div', 'id', 'search')
+const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+const input = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
+const btnSearch = CreateButton ('Buscar')
+const btnEdit = CreateButton ('Editar')
+const btnDelete = CreateButton ('Remover')
+
+searchDiv.append(input, btnSearch)
+editDiv.append(btnEdit, btnDelete)
+asideDiv.append(searchDiv, editDiv)
 main.appendChild(asideDiv)
 document.body.appendChild(main);
 
 
 /* Chamando o CSS */
-const head = document.getElementsByTagName('head')[0];
-const link = document.createElement('link');
+const link = document.createElement('link')
 
-link.rel = 'stylesheet';
-link.type = 'text/css';
-link.href = './categoryList.css';
+function SetMultipleAttributes(el, attrs) {
+    for(const key in attrs) {
+      el.setAttribute(key, attrs[key]);
+    }
+}
 
-head.appendChild(link);
+SetMultipleAttributes(link, {
+    'rel': 'stylesheet',
+    'type': 'text/css',
+    'href': './categoryList.css'  
+})
+
+document.body.appendChild(link);
