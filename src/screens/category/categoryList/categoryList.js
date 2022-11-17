@@ -1,6 +1,7 @@
 (() => {
     for (const file of [
-        'common/Utils.js'
+        'common/Utils.js',
+        'common/Filters.js'
     ]) {
         const script = document.createElement('script')
         script.setAttribute('src', `../../../${file}`)
@@ -25,22 +26,12 @@
         /* Listagem */
         const main = document.createElement('main');
         const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
-        // const select = document.createElement('select');
 
         const newTable = CreateTable(categories, tableHeadNames)
         tableDiv.appendChild(newTable)
         main.appendChild(tableDiv)
 
         /* Botões e busca */
-
-
-
-        // function CreateElementWithAttribute (elName, attrType = '', attrName = '') {
-        //     const newElement = document.createElement(elName);
-        //     newElement.setAttribute(attrType, attrName)
-        //     return newElement;
-        // }
-
         const asideDiv = CreateElementWithAttribute('div', 'id', 'aside')
         const searchDiv = CreateElementWithAttribute('div', 'id', 'search')
         const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
