@@ -15,7 +15,7 @@ function CallCSS(reference) {
         'type': 'text/css',
         'href': reference  
     })
-    document.body.appendChild(link);   
+    document.head.appendChild(link);   
 }
 
 function SetMultipleAttributes(el, attrs) {
@@ -45,9 +45,6 @@ function CreateTable (row, tableHead) {
         const th = document.createElement('th')
         th.innerText = item;
         thead.appendChild(th);
-        // const option = document.createElement('option')
-        // option.innerText = item;
-        // select.appendChild(option);
     });
 
     for (let i = 0; i < row.length; i++) {
