@@ -66,6 +66,7 @@
         }
         
         CallCSS('./categoryList.css')
+        CallCSS('../../../styles/lists.css')
     })
 
 })();
