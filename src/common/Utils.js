@@ -65,6 +65,11 @@ function CreateTable (row, tableHead) {
     return table;
 };
 
+function clearTable() {
+    const table = document.querySelector('table');
+    table.remove();
+  }
+
 function RecreateTable(table, items, headNames, tag) {
     clearTable();
     table = CreateTable(items, headNames)

@@ -42,8 +42,7 @@
 
     main.appendChild(containerBusca);
 
-    const tableContainer = document.createElement('div');
-    tableContainer.setAttribute('style', 'width: 80%; margin: auto;')
+    const tableContainer = CreateElementWithAttribute('div', 'class', 'table-container');
     main.appendChild(tableContainer);
 
     const tableHeaderData = ['Categoria', 'Nome', 'Endereço', 'CEP', 'Telefone', 'E-mail', 'Ação'];
@@ -52,94 +51,47 @@
 
     let filteredCompanies = companies;
 
-    tableCreation();
-
-    function tableCreation() {
-
-      const table = document.createElement('table');
-
-      const thead = document.createElement('thead');
-
-      tableHeaderData.forEach(dado => {
-        const th = document.createElement('th');
-        th.innerText = dado;
-        thead.appendChild(th);
-      });
-      table.appendChild(thead);
-
-      const tbody = document.createElement('tbody');
-      filteredCompanies.forEach(company => {
-        const tr = document.createElement('tr');
-
-        tableData = {
+    function selectDataToTable(companies) {
+      return companies.map( company => {
+        return {
           category: company.category.name,
           name: company.name,
           address: company.address,
           postalCode: company.postal_code,
           phone: company.phone,
           email: company.email
-        };
-
-        for (let key in tableData) {
-          const dado = document.createElement('td');
-          dado.innerText = tableData[key];
-          tr.appendChild(dado);
         }
-
-        const containerIcons = document.createElement('td');
-
-        const buttonEdit = document.createElement('button');
-        const iconEdit = document.createElement('img');
-        iconEdit.setAttribute('src', '../../../assets/imgs/edit_icon.svg');
-        buttonEdit.appendChild(iconEdit);
-        containerIcons.appendChild(buttonEdit);
-
-        const buttonDelete = document.createElement('button');
-        const iconDelete = document.createElement('img');
-        iconDelete.setAttribute('src', '../../../assets/imgs/delete_icon.svg');
-        buttonDelete.appendChild(iconDelete);
-        containerIcons.appendChild(buttonDelete);
-
-        tr.appendChild(containerIcons);
-
-
-        tbody.appendChild(tr);
       });
-      table.appendChild(tbody);
-
-      tableContainer.appendChild(table);
-
     }
 
-    function clearTable() {
-      const table = document.querySelector('table');
-      table.remove();
-    }
+    const tableData = selectDataToTable(filteredCompanies);
 
-    categoryFilter.addEventListener('change', filterByCategory);
+    const table = CreateTable(tableData, tableHeaderData);
 
-
-    searchInput.addEventListener('keyup', filterByKeyWords);
+    tableContainer.appendChild(table);
 
 
-    function filterByCategory() {
+    categoryFilter.addEventListener('change', filterSelectedCategory);
+
+
+    searchInput.addEventListener('keyup', searchData);
+
+
+    function filterSelectedCategory() {
       if (categoryFilter.value === 'Default') {
-        filteredCompanies = companies.filter(company => company.nome.toLocaleLowerCase().includes(searchInput.value.toLocaleLowerCase()));
+        filteredCompanies = companies;
       } else {
-        filteredCompanies = companies.filter(company => company.categoria === categoryFilter.value);
+        filteredCompanies = filterByCategory(companies, categoryFilter.value);
       }
-      clearTable();
-      tableCreation();
-    }
+      const tableData = selectDataToTable(filteredCompanies);
+      RecreateTable(table, tableData, tableHeaderData, tableContainer);
+      }
 
-    function filterByKeyWords() {
-      if (searchInput.value.length < 3) {
-        filterByCategory();
-      } else {
-        filteredCompanies = filteredCompanies.filter(company => company.nome.toLocaleLowerCase().includes(searchInput.value.toLocaleLowerCase()));
-      }
-      clearTable();
-      tableCreation();
+
+    function searchData() {
+      filteredCompaniesByKeyWords = FilterByKeyWord(filteredCompanies, searchInput.value);
+      const tableData = selectDataToTable(filteredCompaniesByKeyWords);
+      RecreateTable(table, tableData, tableHeaderData, tableContainer);
     }
 
     CallCSS('./companiesList.css')
