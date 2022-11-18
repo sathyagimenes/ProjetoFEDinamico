@@ -14,9 +14,12 @@
         let categories= []
 
         const main = document.createElement('main');
+        const searchDiv = CreateElementWithAttribute('div', 'id', 'search')
         const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
         const input = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
-        main.appendChild(input)
+        const button = CreateButton('Adicionar')
+        searchDiv.append(input, button)
+        main.append(searchDiv, tableDiv)
         document.body.appendChild(main);
 
         /* Listagem */        
@@ -32,7 +35,6 @@
 
         let newTable = CreateTable(categories, tableHeadNames)
         tableDiv.appendChild(newTable)
-        main.appendChild(tableDiv) 
         
         /* Busca */
         input.addEventListener('keyup', TextChange)
