@@ -11,3 +11,33 @@ main{
   justify-content: space-between; 
   align-items: center;
 }
+
+table {
+  width:100%; 
+  border: 2px solid #000;
+  border-collapse: collapse;
+}
+
+th{
+  padding: 10px; 
+  text-align: center; 
+  border: 2px solid #000;
+}
+
+tr {
+  padding: 10px; 
+  text-align: center; 
+  border:2px solid #000;
+}
+
+td {
+  padding: 10px; 
+  text-align: center; 
+  border:2px solid #000;
+}
+
+.container-icons {
+   display:flex; 
+   align-items: center; 
+   justify-content: space-around;
+}
