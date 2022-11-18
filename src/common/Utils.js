@@ -59,7 +59,8 @@ function CreateTable (row, tableHead) {
 
     }
 
-    table.append(thead, tbody)
+    table.appendChild(thead)
+    table.appendChild(tbody)
 
     return table;
 };
