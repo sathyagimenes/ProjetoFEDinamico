@@ -49,7 +49,7 @@ function CreateTable (row, tableHead) {
 
     for (let i = 0; i < row.length; i++) {
         const tr = document.createElement("tr");
-        for(let j = 0; j < tableHead.length; j++) {
+        for(let j = 1; j < tableHead.length; j++) {
             const td = document.createElement("td");
             const texto = document.createTextNode(Object.values(row[i])[j]);
             td.appendChild(texto);
@@ -59,11 +59,13 @@ function CreateTable (row, tableHead) {
                 const buttonEdit = document.createElement('button');
                 const iconEdit = document.createElement('img');
                 iconEdit.setAttribute('src', '../../../assets/imgs/edit_icon.svg');
+                iconEdit.setAttribute('id', Object.values(row[i])[0]);
                 buttonEdit.appendChild(iconEdit);
                 buttonsTd.appendChild(buttonEdit);        
                 const buttonDelete = document.createElement('button');
                 const iconDelete = document.createElement('img');
                 iconDelete.setAttribute('src', '../../../assets/imgs/delete_icon.svg');
+                iconDelete.setAttribute('id',Object.values(row[i])[0]);
                 buttonDelete.appendChild(iconDelete);
                 buttonsTd.appendChild(buttonDelete);
                 tr.appendChild(buttonsTd);

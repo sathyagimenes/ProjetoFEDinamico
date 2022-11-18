@@ -54,6 +54,7 @@
     function selectDataToTable(companies) {
       return companies.map( company => {
         return {
+          uid: company.uid,
           category: company.category.name,
           name: company.name,
           address: company.address,
