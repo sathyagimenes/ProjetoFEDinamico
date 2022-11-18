@@ -54,9 +54,22 @@ function CreateTable (row, tableHead) {
             const texto = document.createTextNode(Object.values(row[i])[j]);
             td.appendChild(texto);
             tr.appendChild(td);
+            if (j == tableHead.length - 1) {
+                const buttonsTd = document.createElement("td");
+                const buttonEdit = document.createElement('button');
+                const iconEdit = document.createElement('img');
+                iconEdit.setAttribute('src', '../../../assets/imgs/edit_icon.svg');
+                buttonEdit.appendChild(iconEdit);
+                buttonsTd.appendChild(buttonEdit);        
+                const buttonDelete = document.createElement('button');
+                const iconDelete = document.createElement('img');
+                iconDelete.setAttribute('src', '../../../assets/imgs/delete_icon.svg');
+                buttonDelete.appendChild(iconDelete);
+                buttonsTd.appendChild(buttonDelete);
+                tr.appendChild(buttonsTd);
+            }
         }
         tbody.appendChild(tr);
-
     }
 
     table.appendChild(thead)
