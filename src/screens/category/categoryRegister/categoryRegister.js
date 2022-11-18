@@ -1,5 +1,9 @@
 (() => {
-  for (const file of ["common/forms.js"]) {
+  for (const file of [
+    "common/forms.js",
+    "common/Utils.js",
+    "common/services.js",
+  ]) {
     const script = document.createElement("script");
     script.setAttribute("src", `../../../${file}`);
     document.head.appendChild(script);
@@ -14,25 +18,25 @@
     ];
 
     const main = document.createElement("main");
-    const container = document.createElement("div");
-    const title = document.createElement("h1");
-    const form = document.createElement("form");
-    const divBtn = document.createElement("div");
-    const btnInsert = document.createElement("button");
-
-    title.textContent = "Cadastro de Categorias";
-    btnInsert.textContent = "Cadastrar";
-    divBtn.appendChild(btnInsert);
-
     document.body.appendChild(main);
+
+    const container = document.createElement("div");
     main.appendChild(container);
+
+    const title = document.createElement("h1");
+    title.textContent = "Cadastro de Categorias";
     container.appendChild(title);
+
+    const form = document.createElement("form");
     container.appendChild(form);
 
-    const id = createRows("id");
-    const category = createRows("category");
+    const divId = createRows("divId");
+    const divCategory = createRows("divCategory");
+    const divBtn = document.createElement("div");
+    const btnInsert = CreateButton("Cadastrar");
+    divBtn.appendChild(btnInsert);
 
-    id.appendChild(
+    divId.appendChild(
       createFields({
         fieldName: "divCodigo",
         title: "Código",
@@ -40,18 +44,18 @@
         inputType: "number",
       })
     );
-    category.appendChild(
+    divCategory.appendChild(
       createFields({
         fieldName: "divCategoria",
         title: "Categoria",
         inputName: "inputCategoria",
       })
     );
-
-    form.append(id, category, divBtn);
+    form.append(divId, divCategory, divBtn);
 
     function register(inId, inName) {
       const newObj = { id: inId, name: inName };
+      PostCategory(newObj);
       categories.push(newObj); //adicionar via api
       checkResgiter(); //excluir depois
       window.alert("Categoria adicionada com sucesso!");
@@ -80,124 +84,6 @@
       //adicionar verificação de codigo e nome já inseridos anteriormente
     });
 
-    const styleTag = document.createElement("style");
-    styleTag.innerHTML = `
-		html, body {
-			font-family: Verdana;
-		}
-		main {
-			font-size: 30px;
-			color: #black;
-			margin: 20px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			text-align: center;
-		}
-		h1 {
-			margin: 5rem;
-			text-align: center;
-		}
-		label {
-			margin: 2px;
-		}
-		input {
-			height: 20px;
-			widht: 200px;
-			padding: 8px;
-			font-size: 20px;
-			text-align: center;
-			margin-bottom: 50px;
-		}
-		button {
-			font-size: 20px;
-			width: 150px;
-			margin: 1rem;
-			padding: 6px;
-			border-radius: 10px;
-			box-shadow: 0px 5px 10px 1px rgba(68, 20, 13, 0.199);
-		}
-		`;
-    document.body.appendChild(styleTag);
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth < 600) {
-        styleTag.innerHTML = `
-			html, body {
-				font-family: Verdana;
-			}
-			main {
-				font-size: 20px;
-				color: #black;
-				margin: 20px;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				text-align: center;
-			}
-			h1 {
-				margin: 5rem;
-				text-align: center;
-			}
-			label {
-				margin: 2px;
-			}
-			input {
-				height: 20px;
-				widht: 100px;
-				padding: 8px;
-				font-size: 20px;
-				text-align: center;
-				margin-bottom: 50px;
-			}
-			button {
-				font-size: 20px;
-				width: 150px;
-				margin: 1rem;
-				padding: 6px;
-				border-radius: 10px;
-				box-shadow: 0px 5px 10px 1px rgba(68, 20, 13, 0.199);
-			}
-			`;
-      } else {
-        styleTag.innerHTML = `
-			html, body {
-				font-family: Verdana;
-			}
-			main {
-				font-size: 30px;
-				color: #black;
-				margin: 20px;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				text-align: center;
-			}
-			h1 {
-				margin: 5rem;
-				text-align: center;
-			}
-			label {
-				margin: 2px;
-			}
-			input {
-				height: 20px;
-				widht: 200px;
-				padding: 8px;
-				font-size: 20px;
-				text-align: center;
-				margin-bottom: 50px;
-			}
-			button {
-				font-size: 20px;
-				width: 150px;
-				margin: 1rem;
-				padding: 6px;
-				border-radius: 10px;
-				box-shadow: 0px 5px 10px 1px rgba(68, 20, 13, 0.199);
-			}
-			`;
-      }
-    });
+    CallCSS("./categoryRegister.css");
   });
 })();
