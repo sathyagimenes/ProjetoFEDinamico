@@ -1,7 +1,8 @@
 const groupCode = '3513d2d8-d47e-4da4-a61e-0ed144dd1c7f';
+const baseURL = 'http://estabelecimentos.letscode.dev.netuno.org:25390/services/';
 
 async function GetCategories () {
-  const response = await fetch('http://estabelecimentos.letscode.dev.netuno.org:25390/services/category/list', {
+  const response = await fetch(`${baseURL}category/list`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -25,7 +26,7 @@ async function GetCategories () {
 }
 
 async function GetCompanies () {
-  const response = await fetch('http://estabelecimentos.letscode.dev.netuno.org:25390/services/establishment/list', {
+  const response = await fetch(`${baseURL}establishment/list`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -49,7 +50,7 @@ async function GetCompanies () {
 }
 
 async function GetCompaniesByCategory (categoryCode) {
-  const response = await fetch('http://estabelecimentos.letscode.dev.netuno.org:25390/services/establishment/list', {
+  const response = await fetch(`${baseURL}establishment/list`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
