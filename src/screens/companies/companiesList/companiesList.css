@@ -12,6 +12,11 @@ main{
   align-items: center;
 }
 
+.table-container{
+  width: 80%; 
+  margin: auto;
+}
+
 table {
   width:100%; 
   border: 2px solid #000;

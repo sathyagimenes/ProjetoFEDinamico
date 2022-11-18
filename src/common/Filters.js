@@ -1,16 +1,7 @@
-function clearTable() {
-    const table = document.querySelector('table');
-    table.remove(); 
-}
+function filterByCategory (companies, selectedCategory) {
+filteredCompanies = companies.filter( company => company.category.name === selectedCategory);
 
-function filterByCategory () {
-if(categoryFilter.value === 'Default') {
-    filteredCompanies = companies.filter(company => company.nome.toLocaleLowerCase().includes(searchInput.value.toLocaleLowerCase()));
-} else {
-filteredCompanies = companies.filter( company => company.categoria === categoryFilter.value);
-}
-clearTable();
-tableCreation();
+return filteredCompanies;
 }
 
 function FilterByKeyWord(items, textoBusca) {
