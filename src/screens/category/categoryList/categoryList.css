@@ -1,5 +1,6 @@
 main {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     margin: 10vw 15vw;
@@ -23,14 +24,6 @@ td, tr {
 }
 
 #search {
-    padding: 10px;
-}
-
-#edit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
     padding: 10px;
 }
 
