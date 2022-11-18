@@ -90,16 +90,14 @@
 
         const buttonEdit = document.createElement('button');
         const iconEdit = document.createElement('img');
-        // iconEdit.setAttribute('src', './edit_icon.svg');
+        iconEdit.setAttribute('src', '../../../assets/imgs/edit_icon.svg');
         buttonEdit.appendChild(iconEdit);
-        buttonEdit.innerText = 'Editar';
         containerIcons.appendChild(buttonEdit);
 
         const buttonDelete = document.createElement('button');
         const iconDelete = document.createElement('img');
-        // iconDelete.setAttribute('src', './delete_icon.svg');
+        iconDelete.setAttribute('src', '../../../assets/imgs/delete_icon.svg');
         buttonDelete.appendChild(iconDelete);
-        buttonDelete.innerText = 'Apagar';
         containerIcons.appendChild(buttonDelete);
 
         tr.appendChild(containerIcons);
