@@ -45,7 +45,7 @@
     const tableContainer = CreateElementWithAttribute('div', 'class', 'table-container');
     main.appendChild(tableContainer);
 
-    const tableHeaderData = ['Categoria', 'Nome', 'Endereço', 'CEP', 'Telefone', 'E-mail', 'Ação'];
+    const tableHeaderData = ['Categoria', 'Nome', 'Endereço', 'CEP', 'Telefone', 'E-mail'];
 
     const companies = await GetCompanies();
 
@@ -70,12 +70,9 @@
 
     tableContainer.appendChild(table);
 
-
     categoryFilter.addEventListener('change', filterSelectedCategory);
 
-
     searchInput.addEventListener('keyup', searchData);
-
 
     function filterSelectedCategory() {
       if (categoryFilter.value === 'Default') {
@@ -95,5 +92,6 @@
     }
 
     CallCSS('./companiesList.css')
+    CallCSS('../../../styles/lists.css')
   })
 })();
