@@ -15,6 +15,11 @@ async function GetCategories () {
   }).catch(error => {
     console.log('Erro na comunicação:', error);
   });
+
+  if(!response.ok){
+    errorHandler(response);
+    return []; 
+  }
   
   return await response.json();
 }
@@ -34,6 +39,11 @@ async function GetCompanies () {
   }).catch(error => {
     console.log('Erro na comunicação:', error);
   });
+
+  if(!response.ok){
+    errorHandler(response);
+    return []; 
+  }
   
   return await response.json();
 }
@@ -56,6 +66,15 @@ async function GetCompaniesByCategory (categoryCode) {
   }).catch(error => {
     console.log('Erro na comunicação:', error);
   });
+
+  if(!response.ok){
+    errorHandler(response);
+    return []; 
+  }
   
   return await response.json();
+}
+
+function errorHandler(response){
+    console.log('Erro : ', response.status, ' - ', response.statusText);
 }
