@@ -24,6 +24,7 @@
 
         categoryList.forEach(element => {
                 categories.push({
+                uid: element.uid,
                 code: element.code,
                 name: element.name
             })

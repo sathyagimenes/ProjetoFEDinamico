@@ -49,12 +49,12 @@ function CreateTable (row, tableHead) {
 
     for (let i = 0; i < row.length; i++) {
         const tr = document.createElement("tr");
-        for(let j = 1; j < tableHead.length; j++) {
+        for(let j = 1; j < tableHead.length + 1; j++) {
             const td = document.createElement("td");
             const texto = document.createTextNode(Object.values(row[i])[j]);
             td.appendChild(texto);
             tr.appendChild(td);
-            if (j == tableHead.length - 1) {
+            if (j == tableHead.length ) {
                 const buttonsTd = document.createElement("td");
                 const buttonEdit = document.createElement('button');
                 const iconEdit = document.createElement('img');
