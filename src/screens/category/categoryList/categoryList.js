@@ -1,7 +1,7 @@
 (() => {
     for (const file of [
         'common/Utils.js',
-        'common/Filters.js',
+        'common/filters.js',
         'common/services.js'
     ]) {
         const script = document.createElement('script')
@@ -32,15 +32,16 @@
         console.log(categories)
         console.log(categories.length)
 
+        
         //ver como deixar global
-        function FilterCategoriesByName(e) {
-            //let tableHeadNames = variável informada
-            //let filteredCategories = variável informada
-            let filteredCategories = categories;
-            filteredCategories = filteredCategories.filter(category => category.name.toLocaleLowerCase().includes(e.target.value));
+        // function FilterCategoriesByName(e) {
+        //     //let tableHeadNames = variável informada
+        //     //let filteredCategories = variável informada
+        //     let filteredCategories = categories;
+        //     filteredCategories = filteredCategories.filter(category => category.name.toLocaleLowerCase().includes(e.target.value));
 
-            RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv)
-        }      
+        //     RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv)
+        // }      
 
         /* Botões e busca */
         const asideDiv = CreateElementWithAttribute('div', 'id', 'aside')
@@ -57,7 +58,12 @@
         main.appendChild(asideDiv)
         document.body.appendChild(main);
         
-        input.addEventListener('keyup', FilterCategoriesByName)
+        input.addEventListener('keyup', TextChange)
+
+        function TextChange(e){
+            filteredCategories = FilterCategoriesByName(categories, e.target.value);
+            RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv);
+        }
         
         CallCSS('./categoryList.css')
     })

@@ -1,7 +1,7 @@
 (() => {
   for (const file of [
     'common/Utils.js',
-    'common/Filters.js',
+    'common/filters.js',
     'common/services.js',
   ]) {
     const script = document.createElement('script')

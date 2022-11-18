@@ -13,12 +13,9 @@ clearTable();
 tableCreation();
 }
 
-function filterByKeyWords () {
-    if(searchInput.value.length < 3){
-      filterByCategory();
-    } else {
-      filteredCompanies = filteredCompanies.filter(company => company.nome.toLocaleLowerCase().includes(searchInput.value.toLocaleLowerCase())); 
-    }
-    clearTable();
-    tableCreation();
-}
+function FilterByKeyWord(items, textoBusca) {
+  let filteredItems = items;
+  filteredItems = filteredItems.filter(item => item.name.toLocaleLowerCase().includes(textoBusca.toLocaleLowerCase()));
+
+  return filteredItems;
+}      
