@@ -22,16 +22,3 @@ function filterByKeyWords () {
     clearTable();
     tableCreation();
 }
-
-//ver como deixar global
-function FilterCategoriesByName(e) {
-    //let tableHeadNames = variável informada
-    //let filteredCategories = variável informada
-    let filteredCategories = categories;
-    filteredCategories = filteredCategories.filter(category => category.name.toLocaleLowerCase().includes(e.target.value));
-    clearTable();
-    //newTable seria substituído por uma tabela global
-    newTable = CreateTable(filteredCategories, tableHeadNames)
-    //tableDiv seria substituído pelo append na tag de destino
-    tableDiv.appendChild(newTable)
-}

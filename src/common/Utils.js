@@ -64,3 +64,9 @@ function CreateTable (row, tableHead) {
 
     return table;
 };
+
+function RecreateTable(table, items, headNames, tag) {
+    clearTable();
+    table = CreateTable(items, headNames)
+    tag.appendChild(table)
+}
