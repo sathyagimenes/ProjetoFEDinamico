@@ -1,26 +1,18 @@
-(() => {
-    for (const file of [
-        'common/Utils.js',
-        'common/filters.js',
-        'common/services.js'
-    ]) {
-        const script = document.createElement('script')
-        script.setAttribute('src', `../../../${file}`)
-        document.head.appendChild(script)
-    }
+window.Page.categoryList = async () => {
 
-    window.addEventListener('load', async ()=> {
+    main.innerHTML = '';
+
+    
         const tableHeadNames = ['ID', 'Categoria']
         let categories= []
 
-        const main = document.createElement('main');
         const searchDiv = CreateElementWithAttribute('div', 'id', 'search')
         const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
-        const input = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
-        const button = CreateButton('Adicionar')
-        searchDiv.append(input, button)
+        const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
+        const addButton = CreateButton('Adicionar')
+        addButton.setAttribute('onclick', "location.href = '../categoryRegister/categoryRegister.html'")
+        searchDiv.append(searchInput, addButton)
         main.append(searchDiv, tableDiv)
-        document.body.appendChild(main);
 
         /* Listagem */        
         const categoryList = await GetCategories();
@@ -33,19 +25,29 @@
             })
         });        
 
-        let newTable = CreateTable(categories, tableHeadNames)
+        let newTable = CreateTable(categories, tableHeadNames, 'category')
         tableDiv.appendChild(newTable)
         
+        // const botao = document.querySelector()
+
         /* Busca */
-        input.addEventListener('keyup', TextChange)
+        searchInput.addEventListener('keyup', TextChange)
 
         function TextChange(e){
-            filteredCategories = FilterByKeyWord(categories, e.target.value);
+            filteredCategories = filter.FilterByKeyWord(categories, e.target.value);
             RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv);
         }
-        
-        CallCSS('./categoryList.css')
-        CallCSS('../../../styles/lists.css')
-    })
 
-})();
+        /* Edição */
+        const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+        const idInput = CreateElementWithAttribute('input', 'id', 'id-input');
+        const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
+        const editButton = CreateButton('Editar')
+        editButton.setAttribute('id', 'enviar')
+        editDiv.append(idInput, nameInput, editButton);
+        main.append(editDiv)
+        editDiv.style.display = 'none'
+        
+     
+
+};

@@ -26,6 +26,32 @@ async function GetCategories() {
   return await response.json();
 }
 
+async function EditCategories(uid, id, name) {
+  const response = await fetch(`${baseURL}category`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      uid: uid,
+      code: id,
+      name: name,
+      group: {
+        uid: groupCode,
+      },
+    }),
+  }).catch((error) => {
+    console.log("Erro na comunicação:", error);
+  });
+
+  if (!response.ok) {
+    errorHandler(response);
+    return [];
+  }
+
+  return await response.json();
+}
+
 async function GetCompanies() {
   const response = await fetch(`${baseURL}establishment/list`, {
     method: "POST",

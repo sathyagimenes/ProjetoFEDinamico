@@ -1,19 +1,12 @@
-(() => {
-  for (const file of ["common/forms.js", "common/Utils.js"]) {
-    const script = document.createElement("script");
-    script.setAttribute("src", `../../../${file}`);
 
-    document.head.appendChild(script);
-  }
+window.Page.companiesRegister = () => {
 
-  window.addEventListener("load", () => {
-    const body = document.getElementsByTagName("body")[0];
-    const main = document.createElement("main");
+    main.innerHTML = '';
+
     const container = document.createElement("div");
     const formsTitle = document.createElement("h2");
     const form = document.createElement("form");
 
-    body.appendChild(main);
     main.appendChild(container);
     container.appendChild(formsTitle);
     container.appendChild(form);
@@ -111,5 +104,5 @@
     });
 
     CallCSS("./companiesRegister.css");
-  });
-})();
+  }
+
