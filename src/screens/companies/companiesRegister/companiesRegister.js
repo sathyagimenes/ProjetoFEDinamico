@@ -1,5 +1,5 @@
 (() => {
-  for (const file of ["common/forms.js"]) {
+  for (const file of ["common/forms.js", "common/Utils.js"]) {
     const script = document.createElement("script");
     script.setAttribute("src", `../../../${file}`);
 
@@ -66,20 +66,6 @@
     );
     row4.appendChild(
       createFields({
-        fieldName: "divState",
-        title: "Estado",
-        inputName: "inputState",
-      })
-    );
-    row4.appendChild(
-      createFields({
-        fieldName: "divCity",
-        title: "Cidade",
-        inputName: "inputCity",
-      })
-    );
-    row4.appendChild(
-      createFields({
         fieldName: "divAddress",
         title: "Endereço",
         inputName: "inputAddress",
@@ -88,32 +74,42 @@
 
     form.append(row1, row2, row3, row4);
 
-    (() => {
-      const style = document.createElement("style");
-      style.innerHTML = `
-        html, body {
-            font-family: Arial;
-            font-size: 16px;
-            margin: 0;
-            padding: 0;
-        }
-        row2 {
-            display: flex;
-            flex-direction: rows;
-        }
-        form {
-            width: 60%;
-            margin: 20px auto;
-            padding: 20px;
-            background: #f1f1f1;
-            border-radius: 20px;
-            text-align: center;
-        }
-        div.field {
-            margin-bottom: 10px;
-        }
-    `;
-      document.body.appendChild(style);
-    })();
+    const divButton = document.createElement("div");
+    const btnRegister = CreateButton("Cadastrar");
+    divButton.appendChild(btnRegister);
+    form.appendChild(divButton);
+
+    btnRegister.addEventListener("click", () => {
+      const inputCategory = form.querySelector("[name='inputCategory']");
+      const inputName = form.querySelector("[name='inputName']");
+      const inputEmail = form.querySelector("[name='inputEmail']");
+      const inputPhone = form.querySelector("[name='inputTelephone']");
+      const inputCEP = form.querySelector("[name='inputCEP']");
+      const inputAddress = form.querySelector("[name='inputAddress']");
+
+      if (inputCategory.value.length < 1) {
+        window.alert("Categoria inválida");
+      } else if (inputName.value.length <= 1) {
+        window.alert("Nome inválido.");
+      } else if (inputEmail.value.length <= 1) {
+        window.alert("E-mail inválido.");
+      } else if (inputPhone.value.length <= 1) {
+        window.alert("Telefone inválido.");
+      } else if (inputCEP.value.length <= 1) {
+        window.alert("CEP inválido.");
+      } else if (inputAddress.value.length <= 1) {
+        window.alert("Endereço inválido.");
+      } else {
+        register(inputCategory.value, inputName.value, inputEmail.value, inputPhone.value, inputCEP.value, inputAddress.value);
+        inputCategory.value = "";
+        inputName.value = "";
+        inputEmail.value = "";
+        inputPhone.value = "";
+        inputCEP.value = "";
+        inputAddress.value = "";
+      }
+    });
+
+    CallCSS("./companiesRegister.css");
   });
 })();
