@@ -27,7 +27,6 @@ async function GetCategories() {
 }
 
 async function EditCategories({uid, code, name}) {
-  debugger
   const response = await fetch(`${baseURL}category`, {
     method: "PUT",
     headers: {

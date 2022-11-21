@@ -97,7 +97,6 @@ function RecreateTable(table, items, headNames, tag) {
 async function EditCategory(uid) {
     const categoryList = await GetCategories();
     const chosenCategory = FilterByUid(categoryList, uid)
-    console.log(chosenCategory);
 
     const edit = document.getElementById('edit')
     const idInput = document.getElementById('id-input')
@@ -110,7 +109,9 @@ async function EditCategory(uid) {
 
     editButton.addEventListener('click', callEditService)
     
-    function callEditService(){
-        EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
+    async function callEditService(){
+        await EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
+        idInput.value = ''
+        nameInput.value = ''
     }
 }
