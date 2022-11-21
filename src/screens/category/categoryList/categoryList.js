@@ -34,7 +34,7 @@
             })
         });        
 
-        let newTable = CreateTable(categories, tableHeadNames)
+        let newTable = CreateTable(categories, tableHeadNames, 'category')
         tableDiv.appendChild(newTable)
         
         // const botao = document.querySelector()

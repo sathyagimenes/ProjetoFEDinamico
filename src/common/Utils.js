@@ -36,7 +36,7 @@ function CreateButton (btnText) {
     return newButton;
 }
 
-function CreateTable (row, tableHead) {
+function CreateTable (row, tableHead, type) {
     const table = document.createElement('table');
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
@@ -61,7 +61,7 @@ function CreateTable (row, tableHead) {
                 iconEdit.setAttribute('src', '../../../assets/imgs/edit_icon.svg');
                 buttonEdit.setAttribute('id',Object.values(row[i])[0]);
                 buttonEdit.appendChild(iconEdit);
-                buttonEdit.setAttribute('onclick', 'EditCategory(this.id)')
+                buttonEdit.setAttribute('onclick', type == 'category' ? 'EditCategory(this.id)' : 'EditCompany(this.id)')
                 buttonsTd.appendChild(buttonEdit);        
                 const buttonDelete = document.createElement('button');
                 const iconDelete = document.createElement('img');
