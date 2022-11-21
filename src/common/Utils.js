@@ -108,5 +108,9 @@ async function EditCategory(uid) {
     idInput.setAttribute('value', chosenCategory[0].code)
     nameInput.setAttribute('value', chosenCategory[0].name)
 
-    editButton.addEventListener('click', EditCategories({uid: uid, code: idInput.value, name: nameInput.value}))   
+    editButton.addEventListener('click', callEditService)
+    
+    function callEditService(){
+        EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
+    }
 }
