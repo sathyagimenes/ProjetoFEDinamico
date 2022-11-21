@@ -1,24 +1,13 @@
-(() => {
-  for (const file of [
-    "common/forms.js",
-    "common/Utils.js",
-    "common/services.js",
-  ]) {
-    const script = document.createElement("script");
-    script.setAttribute("src", `../../../${file}`);
-    document.head.appendChild(script);
-  }
+window.Page.categoryRegister = () => {
 
-  window.addEventListener("load", () => {
+    main.innerHTML = '';
+  
     let categories = [
       {
         id: "1",
         name: "Restaurantes",
       },
     ];
-
-    const main = document.createElement("main");
-    document.body.appendChild(main);
 
     const container = document.createElement("div");
     main.appendChild(container);
@@ -84,6 +73,5 @@
       //adicionar verificação de codigo e nome já inseridos anteriormente
     });
 
-    CallCSS("./categoryRegister.css");
-  });
-})();
+    
+}

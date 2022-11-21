@@ -1,20 +1,6 @@
-(() => {
-  for (const file of [
-    'common/Utils.js',
-    'common/filters.js',
-    'common/services.js',
-  ]) {
-    const script = document.createElement('script')
-    script.setAttribute('src', `../../../${file}`)
+window.Page.companiesList = async () => {
 
-    document.head.appendChild(script)
-  }
-
-  window.addEventListener('load', async () => {
-
-    const body = document.querySelector('body');
-    const main = document.createElement('main');
-    body.appendChild(main);
+    main.innerHTML = '';
 
     const containerBusca = CreateElementWithAttribute('div', 'class', 'search-container');
 
@@ -92,7 +78,6 @@
       RecreateTable(table, tableData, tableHeaderData, tableContainer);
     }
 
-    CallCSS('./companiesList.css')
-    CallCSS('../../../styles/lists.css')
-  })
-})();
+    
+    
+}

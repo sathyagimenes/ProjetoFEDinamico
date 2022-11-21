@@ -1,19 +1,11 @@
-(() => {
-  for (const file of ["common/forms.js"]) {
-    const script = document.createElement("script");
-    script.setAttribute("src", `../../../${file}`);
+window.Page.companiesRegister = () => {
 
-    document.head.appendChild(script);
-  }
+    main.innerHTML = '';
 
-  window.addEventListener("load", () => {
-    const body = document.getElementsByTagName("body")[0];
-    const main = document.createElement("main");
     const container = document.createElement("div");
     const formsTitle = document.createElement("h2");
     const form = document.createElement("form");
 
-    body.appendChild(main);
     main.appendChild(container);
     container.appendChild(formsTitle);
     container.appendChild(form);
@@ -115,5 +107,4 @@
     `;
       document.body.appendChild(style);
     })();
-  });
-})();
+}

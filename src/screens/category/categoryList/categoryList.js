@@ -1,19 +1,11 @@
-(() => {
-    for (const file of [
-        'common/Utils.js',
-        'common/filters.js',
-        'common/services.js'
-    ]) {
-        const script = document.createElement('script')
-        script.setAttribute('src', `../../../${file}`)
-        document.head.appendChild(script)
-    }
+window.Page.categoryList = async () => {
 
-    window.addEventListener('load', async ()=> {
+    main.innerHTML = '';
+
+    
         const tableHeadNames = ['ID', 'Categoria']
         let categories= []
 
-        const main = document.createElement('main');
         const searchDiv = CreateElementWithAttribute('div', 'id', 'search')
         const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
         const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
@@ -21,7 +13,6 @@
         addButton.setAttribute('onclick', "location.href = '../categoryRegister/categoryRegister.html'")
         searchDiv.append(searchInput, addButton)
         main.append(searchDiv, tableDiv)
-        document.body.appendChild(main);
 
         /* Listagem */        
         const categoryList = await GetCategories();
@@ -43,7 +34,7 @@
         searchInput.addEventListener('keyup', TextChange)
 
         function TextChange(e){
-            filteredCategories = FilterByKeyWord(categories, e.target.value);
+            filteredCategories = filter.FilterByKeyWord(categories, e.target.value);
             RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv);
         }
 
@@ -57,8 +48,6 @@
         main.append(editDiv)
         editDiv.style.display = 'none'
         
-        CallCSS('./categoryList.css')
-        CallCSS('../../../styles/lists.css')
-    })
+     
 
-})();
+};
