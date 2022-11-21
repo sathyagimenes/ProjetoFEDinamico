@@ -16,9 +16,10 @@
         const main = document.createElement('main');
         const searchDiv = CreateElementWithAttribute('div', 'id', 'search')
         const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
-        const input = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
-        const button = CreateButton('Adicionar')
-        searchDiv.append(input, button)
+        const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
+        const addButton = CreateButton('Adicionar')
+        addButton.setAttribute('onclick', "location.href = '../categoryRegister/categoryRegister.html'")
+        searchDiv.append(searchInput, addButton)
         main.append(searchDiv, tableDiv)
         document.body.appendChild(main);
 
@@ -36,13 +37,25 @@
         let newTable = CreateTable(categories, tableHeadNames)
         tableDiv.appendChild(newTable)
         
+        // const botao = document.querySelector()
+
         /* Busca */
-        input.addEventListener('keyup', TextChange)
+        searchInput.addEventListener('keyup', TextChange)
 
         function TextChange(e){
             filteredCategories = FilterByKeyWord(categories, e.target.value);
             RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv);
         }
+
+        /* Edição */
+        const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+        const idInput = CreateElementWithAttribute('input', 'id', 'id-input');
+        const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
+        const editButton = CreateButton('Editar')
+        editButton.setAttribute('id', 'enviar')
+        editDiv.append(idInput, nameInput, editButton);
+        main.append(editDiv)
+        editDiv.style.display = 'none'
         
         CallCSS('./categoryList.css')
         CallCSS('../../../styles/lists.css')

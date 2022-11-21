@@ -10,3 +10,10 @@ function FilterByKeyWord(items, textoBusca) {
 
   return filteredItems;
 }      
+
+function FilterByUid(items, uid) {
+  let filteredItems = items;
+  filteredItems = filteredItems.filter(item => item.uid.toLocaleLowerCase().includes(uid.toLocaleLowerCase()));
+
+  return filteredItems;
+} 

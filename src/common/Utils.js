@@ -59,13 +59,15 @@ function CreateTable (row, tableHead) {
                 const buttonEdit = document.createElement('button');
                 const iconEdit = document.createElement('img');
                 iconEdit.setAttribute('src', '../../../assets/imgs/edit_icon.svg');
-                iconEdit.setAttribute('id', Object.values(row[i])[0]);
+                buttonEdit.setAttribute('id',Object.values(row[i])[0]);
                 buttonEdit.appendChild(iconEdit);
+                buttonEdit.setAttribute('onclick', 'EditCategory(this.id)')
                 buttonsTd.appendChild(buttonEdit);        
                 const buttonDelete = document.createElement('button');
                 const iconDelete = document.createElement('img');
                 iconDelete.setAttribute('src', '../../../assets/imgs/delete_icon.svg');
-                iconDelete.setAttribute('id',Object.values(row[i])[0]);
+                buttonDelete.setAttribute('id',Object.values(row[i])[0]);
+                buttonDelete.setAttribute('onclick', 'console.log(this.id)')
                 buttonDelete.appendChild(iconDelete);
                 buttonsTd.appendChild(buttonDelete);
                 tr.appendChild(buttonsTd);
@@ -89,4 +91,20 @@ function RecreateTable(table, items, headNames, tag) {
     clearTable();
     table = CreateTable(items, headNames)
     tag.appendChild(table)
+}
+
+async function EditCategory(uid) {
+    const categoryList = await GetCategories();
+    const chosenCategory = FilterByUid(categoryList, uid)
+    console.log(chosenCategory);
+
+    const edit = document.getElementById('edit')
+    const idInput = document.getElementById('id-input')
+    const nameInput = document.getElementById('name-input')
+    const editButton = document.getElementById('enviar')
+    editButton.setAttribute('onclick', 'console.log("enviou")')
+    edit.style.display = 'flex'; 
+
+    idInput.setAttribute('value', chosenCategory[0].code)
+    nameInput.setAttribute('value', chosenCategory[0].name)
 }
