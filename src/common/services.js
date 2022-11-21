@@ -26,16 +26,17 @@ async function GetCategories() {
   return await response.json();
 }
 
-async function EditCategories(uid, id, name) {
+async function EditCategories({uid, code, name}) {
+  debugger
   const response = await fetch(`${baseURL}category`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      uid: uid,
-      code: id,
-      name: name,
+      uid,
+      code,
+      name,
       group: {
         uid: groupCode,
       },

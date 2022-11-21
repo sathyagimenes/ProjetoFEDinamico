@@ -72,6 +72,7 @@ function CreateTable (row, tableHead, type) {
                 buttonsTd.appendChild(buttonDelete);
                 tr.appendChild(buttonsTd);
             }
+            
         }
         tbody.appendChild(tr);
     }
@@ -102,9 +103,10 @@ async function EditCategory(uid) {
     const idInput = document.getElementById('id-input')
     const nameInput = document.getElementById('name-input')
     const editButton = document.getElementById('enviar')
-    editButton.setAttribute('onclick', 'console.log("enviou")')
     edit.style.display = 'flex'; 
 
     idInput.setAttribute('value', chosenCategory[0].code)
     nameInput.setAttribute('value', chosenCategory[0].name)
+
+    editButton.addEventListener('click', EditCategories({uid: uid, code: idInput.value, name: nameInput.value}))   
 }
