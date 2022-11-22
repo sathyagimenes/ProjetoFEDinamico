@@ -31,7 +31,7 @@ window.Page.categoryList = async () => {
 
         function TextChange(e){
             filteredCategories = filter.FilterByKeyWord(categories, e.target.value);
-            RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv);
+            RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv, 'category');
         }
 
         /* Edição */
@@ -40,12 +40,12 @@ window.Page.categoryList = async () => {
         const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
         const editButton = CreateButton('Editar')
         editButton.setAttribute('id', 'enviar')
-        editButton.addEventListener('click', UpdateTable)    
-        async function UpdateTable(){
-            const newCategoryList = await GetCategories();
-            console.log(newCategoryList)
-            RecreateTable(newTable, newCategoryList, tableHeadNames, tableDiv);
-        }
+        // editButton.addEventListener('click', UpdateTable)    
+        // async function UpdateTable(){
+        //     const newCategoryList = await GetCategories();
+        //     console.log(newCategoryList)
+        //     RecreateTable(newTable, newCategoryList, tableHeadNames, tableDiv);
+        // }
         editDiv.append(idInput, nameInput, editButton);
         main.append(editDiv)
         editDiv.style.display = 'none'

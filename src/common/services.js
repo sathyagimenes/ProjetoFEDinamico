@@ -52,6 +52,30 @@ async function EditCategories({uid, code, name}) {
   return await response.json();
 }
 
+async function DeleteCategories(uid) {
+  const response = await fetch(`${baseURL}category`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      group: {
+        uid: groupCode,
+      },
+      uid
+    }),
+  }).catch((error) => {
+    console.log("Erro na comunicação:", error);
+  });  
+
+  if (!response.ok) {
+    errorHandler(response);
+    return [];
+  }
+
+  return await response.json();
+}
+
 async function GetCompanies() {
   const response = await fetch(`${baseURL}establishment/list`, {
     method: "POST",

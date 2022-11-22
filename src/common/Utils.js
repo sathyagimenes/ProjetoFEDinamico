@@ -88,9 +88,9 @@ function clearTable() {
     table.remove();
   }
 
-function RecreateTable(table, items, headNames, tag) {
+function RecreateTable(table, items, headNames, tag, type) {
     clearTable();
-    table = CreateTable(items, headNames)
+    table = CreateTable(items, headNames, type)
     tag.appendChild(table)
 }
 
@@ -107,10 +107,12 @@ async function EditCategory(uid) {
     idInput.setAttribute('value', chosenCategory[0].code)
     nameInput.setAttribute('value', chosenCategory[0].name)
 
-    editButton.addEventListener('click', callEditService)
+    editButton.addEventListener('click', CallEditService)
     
-    async function callEditService(){
+    async function CallEditService(){
         await EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
+        const newList = await GetCategories();
+        console.log(newList)
         idInput.value = ''
         nameInput.value = ''
     }
