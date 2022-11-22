@@ -38,6 +38,7 @@
     CallCSS("./src/screens/category/categoryRegister/categoryRegister.css");
     CallCSS('./src/screens/companies/companiesList/companiesList.css');
     CallCSS('./src/screens/companies/companiesRegister/companiesRegister.css');
+    CallCSS('./src/screens/home/home.css');
   });
 
 })();
