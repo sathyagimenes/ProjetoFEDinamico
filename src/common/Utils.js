@@ -30,9 +30,10 @@ function CreateElementWithAttribute (elName, attrType, attrName) {
     return newElement;
 }
 
-function CreateButton (btnText) {
+function CreateButton (btnText, className = '') {
     const newButton = document.createElement('button');
     newButton.textContent = btnText;
+    newButton.classList.add(className);
     return newButton;
 }
 
@@ -132,13 +133,14 @@ async function EditCompany(companyUid) {
 
     for( const key in chosenCompany){
         const containerData = document.createElement('div');
-        debugger
         if(key == "category"){
+            containerData.classList.add('category-info-container');
             for( const chaveDadoCategoria in chosenCompany[key]){
                 const label = document.createElement('label');
                 label.textContent = relationName[chaveDadoCategoria]; 
                 const input = document.createElement('input');
                 input.value = chosenCompany[key][chaveDadoCategoria];
+                input.name = `category-${chaveDadoCategoria}`;
                 containerData.appendChild(label);
                 containerData.appendChild(input);
                 modal.appendChild(containerData);
@@ -149,6 +151,7 @@ async function EditCompany(companyUid) {
         label.textContent = relationName[key]; 
         const input = document.createElement('input');
         input.value = chosenCompany[key];
+        input.name = `modal-${key}`;
         containerData.appendChild(label);
         containerData.appendChild(input);
         modal.appendChild(containerData);
@@ -156,9 +159,37 @@ async function EditCompany(companyUid) {
     
     modal.setAttribute('style', 'display: flex;')
 
-    const buttonUpdate = CreateButton('Atualizar');
-    const buttonCancel = CreateButton('Cancelar');
-    console.log(chosenCompany);
+    const buttonUpdate = CreateButton('Atualizar', 'update-company-modal');
+    buttonUpdate.addEventListener('click', () => {
+        debugger
+        const modalUid = document.getElementsByName('modal-uid')[0];
+        const modalAdrdess = document.getElementsByName('modal-address')[0]; 
+        const modalPhone = document.getElementsByName('modal-phone')[0]; 
+        const modalName = document.getElementsByName('modal-name')[0];
+        const modalCategoryId = document.getElementsByName('category-uid')[0]; 
+        const modalPostalCode = document.getElementsByName('modal-postal_code')[0]; 
+        const modalEmail = document.getElementsByName('modal-email')[0]; 
+        const updateData = {
+            uid: modalUid.value, 
+            address: modalAdrdess.value, 
+            phone: modalPhone.value, 
+            name: modalName.value, 
+            categoryUid: modalCategoryId.value, 
+            postal_code: modalPostalCode.value, 
+            email: modalEmail.value 
+        };
+        UpdateCompany(updateData);
+        modal.setAttribute('style', 'display: none');
+        Page.companiesList();
+    })
+
+    modal.appendChild(buttonUpdate);	
+
+    const buttonCancel = CreateButton('Cancelar', 'delete-company-modal');
+    buttonCancel.addEventListener('click', () => {
+        modal.setAttribute('style', 'display: none');
+    })
+    modal.appendChild(buttonCancel);
 }
 
 async function DeleteCategory(uid) {
