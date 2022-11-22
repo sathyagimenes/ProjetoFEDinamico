@@ -32,21 +32,5 @@ window.Page.categoryList = async () => {
         function TextChange(e){
             filteredCategories = FilterByKeyWord(categories, e.target.value);
             RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv, 'category');
-        }
-
-        /* Edição */
-        const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
-        const idInput = CreateElementWithAttribute('input', 'id', 'id-input');
-        const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
-        const editButton = CreateButton('Editar')
-        editButton.setAttribute('id', 'enviar')
-        editButton.addEventListener('click', UpdatePage)    
-        async function UpdatePage(){
-            setTimeout((() => {
-                Page.categoryList(); 
-              }), 1500)
-        }
-        editDiv.append(idInput, nameInput, editButton);
-        main.append(editDiv)
-        editDiv.style.display = 'none'     
+        }  
 };

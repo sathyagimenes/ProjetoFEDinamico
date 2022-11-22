@@ -96,26 +96,27 @@ function RecreateTable(table, items, headNames, tag, type) {
 
 async function EditCategory(uid) {
     const categoryList = await GetCategories();
-    const chosenCategory = FilterByUid(categoryList, uid)
+    let chosenCategory = FilterByUid(categoryList, uid)
 
-    const edit = document.getElementById('edit')
-    const idInput = document.getElementById('id-input')
-    const nameInput = document.getElementById('name-input')
-    const editButton = document.getElementById('enviar')
-    edit.style.display = 'flex'; 
+    const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+    const idInput = CreateElementWithAttribute('input', 'id', 'id-input');
+    const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
+    const editButton = CreateButton('Editar')
+    editButton.setAttribute('id', 'enviar')
 
-    idInput.setAttribute('value', chosenCategory[0].code)
-    nameInput.setAttribute('value', chosenCategory[0].name)
+    idInput.value = chosenCategory[0].code
+    nameInput.value = chosenCategory[0].name
 
     editButton.addEventListener('click', CallEditService)
     
     async function CallEditService(){
         await EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
-        const newList = await GetCategories();
-        console.log(newList)
-        // idInput.value = ''
-        // nameInput.value = ''
+        setTimeout((() => {
+            Page.categoryList(); 
+          }), 1000)
     }
+    editDiv.append(idInput, nameInput, editButton);
+    main.appendChild(editDiv)
 }
 
 async function EditCompany(companyUid) {
