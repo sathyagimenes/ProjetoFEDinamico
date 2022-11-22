@@ -67,7 +67,7 @@ function CreateTable (row, tableHead, type) {
                 const iconDelete = document.createElement('img');
                 iconDelete.setAttribute('src', './src/assets/imgs/delete_icon.svg');
                 buttonDelete.setAttribute('id',Object.values(row[i])[0]);
-                buttonDelete.setAttribute('onclick', 'console.log(this.id)')
+                buttonDelete.setAttribute('onclick', type == 'category' ? 'EditCategory(this.id)' : 'EditCompany(this.id)')
                 buttonDelete.appendChild(iconDelete);
                 buttonsTd.appendChild(buttonDelete);
                 tr.appendChild(buttonsTd);
@@ -110,7 +110,7 @@ async function EditCategory(uid) {
     editButton.addEventListener('click', CallEditService)
     
     async function CallEditService(){
-        await EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
+        await UpdateCategories({uid: uid, code: idInput.value, name: nameInput.value});
         setTimeout((() => {
             Page.categoryList(); 
           }), 1000)

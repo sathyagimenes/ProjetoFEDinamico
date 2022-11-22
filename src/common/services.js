@@ -26,7 +26,7 @@ async function GetCategories() {
   return await response.json();
 }
 
-async function EditCategories({uid, code, name}) {
+async function UpdateCategories({uid, code, name}) {
   const response = await fetch(`${baseURL}category`, {
     method: "PUT",
     headers: {
