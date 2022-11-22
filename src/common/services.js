@@ -183,6 +183,38 @@ async function PostCompany({ category, name, email, phone, cep, address }) {
   return await response.json();
 }
 
+async function UpdateCompany({uid, address, phone, name, categoryUid, postal_code, email}) {
+  const response = await fetch(`${baseURL}establishment`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      uid,
+      address,
+      phone,
+      name,
+      category: {
+        uid: categoryUid,
+      },
+      postal_code,
+      email,
+      group: {
+        uid: groupCode
+      }
+    }),
+  }).catch((error) => {
+    console.log("Erro na comunicação:", error);
+  });
+
+  if (!response.ok) {
+    errorHandler(response);
+    return [];
+  }
+
+  return await response.json();
+}
+
 function errorHandler(response) {
   console.log("Erro : ", response.status, " - ", response.statusText);
 }
