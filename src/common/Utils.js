@@ -126,8 +126,7 @@ async function EditCompany(companyUid) {
     const companiesList = await GetCompanies();
     const chosenCompany = FilterByUid(companiesList, companyUid)[0];
 
-    const modal = document.createElement('div');
-    modal.setAttribute('class', 'modal-companyData');
+    const modal = document.querySelector('.modal-companyData')
 
     modal.innerHTML = '';
 
@@ -158,8 +157,10 @@ async function EditCompany(companyUid) {
         modal.appendChild(containerData);
     }
     
-    main.appendChild(modal);
+    modal.setAttribute('style', 'display: flex;')
 
+    const buttonUpdate = CreateButton('Atualizar');
+    const buttonCancel = CreateButton('Cancelar');
     console.log(chosenCompany);
 }
 

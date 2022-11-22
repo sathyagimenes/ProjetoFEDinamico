@@ -57,6 +57,11 @@ window.Page.companiesList = async () => {
 
     tableContainer.appendChild(table);
 
+    const modal = document.createElement('div');
+    modal.setAttribute('class', 'modal-companyData');
+    modal.setAttribute('style', 'display: none;');
+    main.appendChild(modal);
+
     categoryFilter.addEventListener('change', filterSelectedCategory);
 
     searchInput.addEventListener('keyup', searchData);
