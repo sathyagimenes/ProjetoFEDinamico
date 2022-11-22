@@ -33,7 +33,7 @@ function CreateElementWithAttribute (elName, attrType, attrName) {
 function CreateButton (btnText, className = '') {
     const newButton = document.createElement('button');
     newButton.textContent = btnText;
-    newButton.classList.add(className);
+    newButton.setAttribute('class', className);
     return newButton;
 }
 
@@ -122,6 +122,7 @@ async function EditCategory(uid) {
 
 async function EditCompany(companyUid) {
     const companiesList = await GetCompanies();
+    const categories =  await GetCategories();
     const chosenCompany = FilterByUid(companiesList, companyUid)[0];
 
     const modal = document.querySelector('.modal-companyData')
@@ -136,14 +137,27 @@ async function EditCompany(companyUid) {
         if(key == "category"){
             containerData.classList.add('category-info-container');
             for( const chaveDadoCategoria in chosenCompany[key]){
-                const label = document.createElement('label');
-                label.textContent = relationName[chaveDadoCategoria]; 
-                const input = document.createElement('input');
-                input.value = chosenCompany[key][chaveDadoCategoria];
-                input.name = `category-${chaveDadoCategoria}`;
-                containerData.appendChild(label);
-                containerData.appendChild(input);
-                modal.appendChild(containerData);
+                if(chaveDadoCategoria == 'name'){
+                    const label = document.createElement('label');
+                    label.textContent = 'Categoria';
+                    const categorySelection = document.createElement('select');
+                    const optionDefault = CreateElementWithAttribute('option', 'value', chosenCompany[key][chaveDadoCategoria]);
+                    optionDefault.innerText = chosenCompany[key][chaveDadoCategoria];
+                    categorySelection.appendChild(optionDefault);
+
+                    
+
+                    categories.forEach( category => {
+                    const option = document.createElement('option');
+                    option.setAttribute('value', category.name);
+                    option.innerText = category.name;
+                    categorySelection.appendChild(option);
+                    }); 
+
+                    containerData.appendChild(label);
+                    containerData.appendChild(categorySelection);
+                    modal.appendChild(containerData);
+                }
             }
             continue;
         }
