@@ -61,13 +61,13 @@ function CreateTable (row, tableHead, type) {
                 iconEdit.setAttribute('src', './src/assets/imgs/edit_icon.svg');
                 buttonEdit.setAttribute('class',Object.values(row[i])[0]);
                 buttonEdit.appendChild(iconEdit);
-                buttonEdit.setAttribute('onclick', type == 'category' ? 'EditCategory(this.class)' : 'EditCompany(this.class)')
+                buttonEdit.setAttribute('onclick', type == 'category' ? 'EditCategory(this.className)' : 'EditCompany(this.className)')
                 buttonsTd.appendChild(buttonEdit);        
                 const buttonDelete = document.createElement('button');
                 const iconDelete = document.createElement('img');
                 iconDelete.setAttribute('src', './src/assets/imgs/delete_icon.svg');
                 buttonDelete.setAttribute('class',Object.values(row[i])[0]);
-                buttonDelete.setAttribute('onclick', type == 'category' ? 'DeleteCategory(this.class)' : 'EditCompany(this.class)')
+                buttonDelete.setAttribute('onclick', type == 'category' ? "DeleteCategory(this.className)" : "DeleteCompany(this.className)")
                 buttonDelete.appendChild(iconDelete);
                 buttonsTd.appendChild(buttonDelete);
                 tr.appendChild(buttonsTd);
@@ -164,6 +164,7 @@ async function DeleteCategory(uid) {
     // const categoryList = await GetCategories();
     // let chosenCategory = FilterByUid(categoryList, uid)
     const deleteButton = document.getElementsByClassName(uid)
+    console.log(uid)
     // deleteButton.addEventListener('click', CallDeleteService)
     
     // async function CallDeleteService(){
