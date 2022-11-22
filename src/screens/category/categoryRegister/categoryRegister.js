@@ -47,14 +47,19 @@ window.Page.categoryRegister = async () => {
   async function insertCategory() {
     const inputId = form.querySelector("[name='inputCodigo']");
     const inputName = form.querySelector("[name='inputCategoria']");
-    const equal = FilterCategoryByCode(categories, inputId.value);
+    const sameId = FilterCategoryByCode(categories, inputId.value);
+    const sameName = FilterCategoryByName(categories, inputName.value);
     if (inputId.value.length < 1) {
       window.alert("O código deve ter, pelo menos, um número");
     } else if (inputName.value.length <= 2) {
       window.alert("O nome da categoria deve ter, pelo menos, três letras");
-    } else if (equal.length > 0) {
+    } else if (sameId.length > 0) {
       window.alert(
         `O codigo ${inputId.value} já existe. Insira um novo código`
+      );
+    } else if (sameName.length > 0) {
+      window.alert(
+        `A categoria ${inputName.value} já existe`
       );
     } else {
       register(inputId.value, inputName.value);
