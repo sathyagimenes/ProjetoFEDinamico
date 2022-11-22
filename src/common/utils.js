@@ -1,12 +1,3 @@
-// window.setMultipleAttributes = {
-//     setAttributes: (el, attrs) => {
-//         debugger
-//         for(const key in attrs) {
-//             el.setAttribute(key, attrs[key]);
-//         }
-//     }    
-// }
-
 /* Chamando o CSS */
 function CallCSS(reference) {
     const link = document.createElement('link')
@@ -186,8 +177,6 @@ async function EditCompany(companyUid) {
 
     const buttonUpdate = CreateButton('Atualizar', 'update-company-modal');
     buttonUpdate.addEventListener('click', () => {
-        debugger
-
         const modalCategoryName = document.getElementById('categorySelectionField').value;
 
         const categoryData = categories.filter( item => item.name == modalCategoryName)[0];

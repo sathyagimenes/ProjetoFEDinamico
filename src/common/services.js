@@ -3,7 +3,6 @@ const baseURL =
   "http://estabelecimentos.letscode.dev.netuno.org:25390/services/";
 
 async function GetCategories() {
-  debugger
   const response = await fetch(`${baseURL}category/list`, {
     method: "POST",
     headers: {
@@ -20,7 +19,7 @@ async function GetCategories() {
   });
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     const categoriesStorage = JSON.parse(sessionStorage.getItem('categories'));
     return categoriesStorage;
   }
@@ -49,7 +48,7 @@ async function UpdateCategories({uid, code, name}) {
   });
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     return [];
   }
 
@@ -73,7 +72,7 @@ async function DeleteCategories(uid) {
   });  
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     return [];
   }
 
@@ -97,7 +96,7 @@ async function GetCompanies() {
   });
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     const categoriesStorage = JSON.parse(sessionStorage.getItem('companies'));
     return categoriesStorage;
   }
@@ -127,7 +126,7 @@ async function GetCompaniesByCategory(categoryCode) {
   });
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     return [];
   }
 
@@ -152,7 +151,7 @@ async function PostCategory({ id, name }) {
   });
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     return [];
   }
 
@@ -183,7 +182,7 @@ async function PostCompany({ category, name, email, phone, cep, address }) {
   });
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     return [];
   }
 
@@ -215,15 +214,15 @@ async function UpdateCompany({uid, address, phone, name, categoryUid, postal_cod
   });
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     return [];
   }
 
   return await response.json();
 }
 
-function errorHandler(response) {
-  console.log("Erro : ", response);
+function errorHandler() {
+  console.log("Erro : ", 'Falha na comunicação. Tente novamente mais tarde.');
 }
 
 async function DeleteCompanies(uid) {
@@ -243,7 +242,7 @@ async function DeleteCompanies(uid) {
   });  
 
   if (!response) {
-    errorHandler(response);
+    errorHandler();
     return [];
   }
 
