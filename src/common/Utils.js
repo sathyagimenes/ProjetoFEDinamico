@@ -95,6 +95,9 @@ function RecreateTable(table, items, headNames, tag, type) {
 }
 
 async function EditCategory(uid) {
+    if (document.getElementById('edit') != null) {
+        document.getElementById('edit').remove()
+    }
     const categoryList = await GetCategories();
     let chosenCategory = FilterByUid(categoryList, uid)
 
