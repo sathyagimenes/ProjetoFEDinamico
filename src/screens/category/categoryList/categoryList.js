@@ -9,11 +9,10 @@ window.Page.categoryList = async () => {
         const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
         const addButton = CreateButton('Adicionar')
         addButton.setAttribute('onclick', "location.href = '../categoryRegister/categoryRegister.html'")
-        searchDiv.append(searchInput, addButton)
-        main.append(searchDiv, tableDiv)
 
         /* Listagem */        
         const categoryList = await GetCategories();
+        categoryList.sort((a,b) => a.code - b.code);
 
         categoryList.forEach(element => {
                 categories.push({
@@ -24,7 +23,10 @@ window.Page.categoryList = async () => {
         });        
 
         let newTable = CreateTable(categories, tableHeadNames, 'category')
-        tableDiv.appendChild(newTable)
+
+        searchDiv.append(searchInput, addButton)
+        tableDiv.appendChild(newTable)        
+        main.append(searchDiv, tableDiv)
 
         /* Busca */
         searchInput.addEventListener('keyup', TextChange)
