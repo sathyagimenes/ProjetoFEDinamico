@@ -33,7 +33,7 @@
 
     // myFramework.loadCss('styles.css');
 
-    CallCSS('./src/styles/lists.css');
+    CallCSS('./src/styles/style.css');
     CallCSS('./src/screens/category/categoryList/categoryList.css');
     CallCSS("./src/screens/category/categoryRegister/categoryRegister.css");
     CallCSS('./src/screens/companies/companiesList/companiesList.css');
