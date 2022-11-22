@@ -114,3 +114,44 @@ async function EditCategory(uid) {
         EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
     }
 }
+
+async function EditCompany(companyUid) {
+    const companiesList = await GetCompanies();
+    const chosenCompany = FilterByUid(companiesList, companyUid)[0];
+
+    const modal = document.createElement('div');
+    modal.setAttribute('class', 'modal-companyData');
+
+    modal.innerHTML = '';
+
+    const relationName = {uid: 'uid', address: 'Endereço', phone: 'Telefone', name: 'Nome', category: 'Categoria', postal_code: 'CEP', email: 'email', code: 'Código Categoria'};
+    modal.innerHTML = '';
+
+    for( const key in chosenCompany){
+        const containerData = document.createElement('div');
+        debugger
+        if(key == "category"){
+            for( const chaveDadoCategoria in chosenCompany[key]){
+                const label = document.createElement('label');
+                label.textContent = relationName[chaveDadoCategoria]; 
+                const input = document.createElement('input');
+                input.value = chosenCompany[key][chaveDadoCategoria];
+                containerData.appendChild(label);
+                containerData.appendChild(input);
+                modal.appendChild(containerData);
+            }
+            continue;
+        }
+        const label = document.createElement('label');
+        label.textContent = relationName[key]; 
+        const input = document.createElement('input');
+        input.value = chosenCompany[key];
+        containerData.appendChild(label);
+        containerData.appendChild(input);
+        modal.appendChild(containerData);
+    }
+    
+    main.appendChild(modal);
+
+    console.log(chosenCompany);
+}
