@@ -91,6 +91,8 @@ window.Page.companiesRegister = async () => {
       const inputPhone = form.querySelector("[name='inputTelephone']");
       const inputCEP = form.querySelector("[name='inputCEP']");
       const inputAddress = form.querySelector("[name='inputAddress']");
+      const categoryData = categories.filter( item => item.name == categoryFilter.value)[0];
+
 
       if (inputName.value.length <= 1) {
         window.alert("Nome inválido.");
@@ -104,7 +106,7 @@ window.Page.companiesRegister = async () => {
       } else if (inputAddress.value.length <= 1) {
         window.alert("Endereço inválido.");
       } else {
-        register(categoryFilter.value, inputName.value, inputEmail.value, inputPhone.value, inputCEP.value, inputAddress.value);
+        register(categoryData.uid, inputName.value, inputEmail.value, inputPhone.value, inputCEP.value, inputAddress.value);
         inputCategory.value = "";
         inputName.value = "";
         inputEmail.value = "";
