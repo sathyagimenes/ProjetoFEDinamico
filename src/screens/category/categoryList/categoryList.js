@@ -1,8 +1,6 @@
 window.Page.categoryList = async () => {
 
-    main.innerHTML = '';
-
-    
+    main.innerHTML = '';    
         const tableHeadNames = ['ID', 'Categoria']
         let categories= []
 
@@ -27,8 +25,6 @@ window.Page.categoryList = async () => {
 
         let newTable = CreateTable(categories, tableHeadNames, 'category')
         tableDiv.appendChild(newTable)
-        
-        // const botao = document.querySelector()
 
         /* Busca */
         searchInput.addEventListener('keyup', TextChange)
@@ -44,6 +40,12 @@ window.Page.categoryList = async () => {
         const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
         const editButton = CreateButton('Editar')
         editButton.setAttribute('id', 'enviar')
+        editButton.addEventListener('click', UpdateTable)    
+        async function UpdateTable(){
+            const newCategoryList = await GetCategories();
+            console.log(newCategoryList)
+            RecreateTable(newTable, newCategoryList, tableHeadNames, tableDiv);
+        }
         editDiv.append(idInput, nameInput, editButton);
         main.append(editDiv)
         editDiv.style.display = 'none'
