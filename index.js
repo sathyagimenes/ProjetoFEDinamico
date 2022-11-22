@@ -25,7 +25,7 @@
     
     window.main = document.createElement('main');
     document.body.appendChild(main);
-
+    window.Page.home.addHomeBody();
     window.Page.home.addFooter();
     // Page.home();
 
