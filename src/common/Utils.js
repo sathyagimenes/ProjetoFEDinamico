@@ -112,10 +112,19 @@ async function EditCategory(uid) {
     editButton.addEventListener('click', CallEditService)
     
     async function CallEditService(){
-        await UpdateCategories({uid: uid, code: idInput.value, name: nameInput.value});
-        setTimeout((() => {
-            Page.categoryList(); 
-          }), 1000)
+        const equal = FilterCategoryByCode(categoryList, idInput.value);
+        if (idInput.value.length < 1) {
+          window.alert("O código deve ter, pelo menos, um número");
+        } else if (nameInput.value.length <= 2) {
+          window.alert("O nome da categoria deve ter, pelo menos, três letras");
+        } else if (equal.length > 0) {
+          window.alert(`O codigo ${idInput.value} já existe. Insira um novo código`);
+        } else {
+            await UpdateCategories({uid: uid, code: idInput.value, name: nameInput.value});
+            setTimeout((() => {
+                Page.categoryList(); 
+            }), 1000)
+        }        
     }
     editDiv.append(idInput, nameInput, editButton);
 }
