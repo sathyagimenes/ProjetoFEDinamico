@@ -43,3 +43,10 @@ function filterByCategory (companies, selectedCategory) {
   
     return filteredItems;
   }
+
+  function FilterCategoryByName(items, categoryName) {
+    let filteredItems = items;
+    filteredItems = filteredItems.filter(item => item.name.toLocaleLowerCase().includes(categoryName.toLocaleLowerCase()));
+  
+    return filteredItems;
+  }

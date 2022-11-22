@@ -23,4 +23,32 @@ window.Page.home = {
         header.appendChild(nav);
         document.body.appendChild(header);
     },
+    addFooter: async () => {
+        const footer = document.createElement('footer');
+        const nav = document.createElement('nav');
+        const ul = document.createElement('ul');
+
+        const companies = await GetCompanies();
+        const map = new Map();
+        companies.forEach(company => {
+            if(map.get(company.category.name) == undefined){
+                map.set(company.category.name, 1);
+            }
+            else{
+                let aux = map.get(company.category.name);
+                aux ++;
+                map.set(company.category.name, aux);``
+            }
+        });
+
+        map.forEach((value, key) => {
+            const li = document.createElement('li');
+            li.textContent = `${key} - ${value}`;
+            ul.appendChild(li);
+        });
+
+        nav.appendChild(ul);
+        footer.appendChild(nav);
+        document.body.appendChild(footer);
+    }
 };
