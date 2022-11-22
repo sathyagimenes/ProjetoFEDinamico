@@ -23,5 +23,4 @@ window.Page.home = {
         header.appendChild(nav);
         document.body.appendChild(header);
     },
-cd
 };

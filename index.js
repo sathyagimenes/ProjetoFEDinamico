@@ -36,7 +36,7 @@
     CallCSS('./src/screens/category/categoryList/categoryList.css');
     CallCSS("./src/screens/category/categoryRegister/categoryRegister.css");
     CallCSS('./src/screens/companies/companiesList/companiesList.css');
-
+    CallCSS('./src/screens/companies/companiesRegister/companiesRegister.css');
   });
 
 })();
