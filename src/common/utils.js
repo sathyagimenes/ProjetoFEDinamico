@@ -112,6 +112,7 @@ async function EditCategory(uid) {
     editButton.addEventListener('click', CallEditService)
     
     async function CallEditService(){
+        debugger
         const codes = FilterCategoryByCode(categoryList, idInput.value);
         if (idInput.value.length < 1) {
             window.alert("O código deve ter, pelo menos, um número");
