@@ -2,9 +2,12 @@ window.Page.companiesList = async (filter = "") => {
 
     main.innerHTML = '';
 
-    const containerBusca = CreateElementWithAttribute('div', 'class', 'search-container');
+    const containerCompaniesListPage = CreateElementWithAttribute('div', 'class', 'page-container-companiesList');
+    main.appendChild(containerCompaniesListPage);
 
-    const categoryFilter = document.createElement('select');
+    const containerBusca = CreateElementWithAttribute('div', 'class', 'search-container-companiesList');
+
+    const categoryFilter = CreateElementWithAttribute('select','class', 'select-companiesList');
     const optionDefault = CreateElementWithAttribute('option', 'value', 'Default');
     optionDefault.innerText = "Filtro por Categoria";
     categoryFilter.appendChild(optionDefault);
@@ -19,17 +22,20 @@ window.Page.companiesList = async (filter = "") => {
     });
     
     const searchInput = CreateElementWithAttribute('input', 'placeholder', 'buscar por...');
-    const addButton = document.createElement('button');
-    addButton.innerText = "Adicionar";
+    searchInput.setAttribute('class', 'searchInput-companiesList');
+    const addButton = CreateButton('Cadastro', 'AddButton-companiesList');
+
+
+    addButton.addEventListener('click', () =>{Page.companiesRegister()});
 
     containerBusca.appendChild(categoryFilter);
     containerBusca.appendChild(searchInput);
     containerBusca.appendChild(addButton);
 
-    main.appendChild(containerBusca);
+    containerCompaniesListPage.appendChild(containerBusca);
 
-    const tableContainer = CreateElementWithAttribute('div', 'class', 'table-container');
-    main.appendChild(tableContainer);
+    const tableContainer = CreateElementWithAttribute('div', 'class', 'table-container-companiesList');
+    containerCompaniesListPage.appendChild(tableContainer);
 
     const tableHeaderData = ['Categoria', 'Nome', 'Endereço', 'CEP', 'Telefone', 'E-mail'];
 
@@ -57,13 +63,14 @@ window.Page.companiesList = async (filter = "") => {
     }else{
       const tableData = selectDataToTable(filteredCompanies);
       const table = CreateTable(tableData, tableHeaderData);
+      table.setAttribute('class', 'table-companiesList');
       tableContainer.appendChild(table);
     }
 
     const modal = document.createElement('div');
     modal.setAttribute('class', 'modal-companyData');
     modal.setAttribute('style', 'display: none;');
-    main.appendChild(modal);
+    containerCompaniesListPage.appendChild(modal);
 
     categoryFilter.addEventListener('change', filterSelectedCategory);
 
@@ -81,6 +88,7 @@ window.Page.companiesList = async (filter = "") => {
       }
       const tableData = selectDataToTable(filteredCompanies);
       const table = CreateTable(tableData, tableHeaderData);
+      table.setAttribute('class', 'table-companiesList');
       tableContainer.appendChild(table);
       }
 
