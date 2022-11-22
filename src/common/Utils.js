@@ -95,13 +95,11 @@ function RecreateTable(table, items, headNames, tag, type) {
 }
 
 async function EditCategory(uid) {
-    if (document.getElementById('edit') != null) {
-        document.getElementById('edit').remove()
-    }
     const categoryList = await GetCategories();
     let chosenCategory = FilterByUid(categoryList, uid)
 
-    const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+    const editDiv = document.getElementById('edit')
+    editDiv.innerHTML = '';
     const idInput = CreateElementWithAttribute('input', 'id', 'id-input');
     const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
     const editButton = CreateButton('Editar')
@@ -119,7 +117,6 @@ async function EditCategory(uid) {
           }), 1000)
     }
     editDiv.append(idInput, nameInput, editButton);
-    main.appendChild(editDiv)
 }
 
 async function EditCompany(companyUid) {
@@ -165,16 +162,28 @@ async function EditCompany(companyUid) {
 }
 
 async function DeleteCategory(uid) {
-    // const categoryList = await GetCategories();
-    // let chosenCategory = FilterByUid(categoryList, uid)
-    const deleteButton = document.getElementsByClassName(uid)
-    console.log(uid)
-    // deleteButton.addEventListener('click', CallDeleteService)
-    
-    // async function CallDeleteService(){
-    //     await DeleteCategories({uid: uid});
-    //     setTimeout((() => {
-    //         Page.categoryList(); 
-    //       }), 1000)
-    // }
-}
+    if (confirm("Deseja realmente deletar essa categoria?")) { 
+        CallDeleteService(uid, 'category')  
+    }   
+}    
+
+async function DeleteCompany(uid) {
+    if (confirm("Deseja realmente deletar esse estabelecimento?")) {  
+        CallDeleteService(uid, 'company')  
+    }   
+}    
+
+async function CallDeleteService(uid, type){
+        if (type == 'category') {
+            await DeleteCategories(uid);
+            setTimeout((() => {
+                Page.categoryList(); 
+            }), 1000)            
+        }
+        else {
+            await DeleteCompanies(uid);
+            setTimeout((() => {
+                Page.companiesList(); 
+              }), 1000)            
+        }
+    }

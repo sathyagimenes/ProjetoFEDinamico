@@ -33,4 +33,8 @@ window.Page.categoryList = async () => {
             filteredCategories = FilterByKeyWord(categories, e.target.value);
             RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv, 'category');
         }  
+
+        /* Edição */
+        const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+        main.appendChild(editDiv)
 };
