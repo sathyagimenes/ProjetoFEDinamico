@@ -141,11 +141,10 @@ async function EditCompany(companyUid) {
                     const label = document.createElement('label');
                     label.textContent = 'Categoria';
                     const categorySelection = document.createElement('select');
+                    categorySelection.setAttribute('id', 'categorySelectionField');
                     const optionDefault = CreateElementWithAttribute('option', 'value', chosenCompany[key][chaveDadoCategoria]);
                     optionDefault.innerText = chosenCompany[key][chaveDadoCategoria];
                     categorySelection.appendChild(optionDefault);
-
-                    
 
                     categories.forEach( category => {
                     const option = document.createElement('option');
@@ -176,11 +175,16 @@ async function EditCompany(companyUid) {
     const buttonUpdate = CreateButton('Atualizar', 'update-company-modal');
     buttonUpdate.addEventListener('click', () => {
         debugger
+
+        const modalCategoryName = document.getElementById('categorySelectionField').value;
+
+        const categoryData = categories.filter( item => item.name == modalCategoryName)[0];
+
         const modalUid = document.getElementsByName('modal-uid')[0];
         const modalAdrdess = document.getElementsByName('modal-address')[0]; 
         const modalPhone = document.getElementsByName('modal-phone')[0]; 
         const modalName = document.getElementsByName('modal-name')[0];
-        const modalCategoryId = document.getElementsByName('category-uid')[0]; 
+        const modalCategoryId = categoryData.uid; 
         const modalPostalCode = document.getElementsByName('modal-postal_code')[0]; 
         const modalEmail = document.getElementsByName('modal-email')[0]; 
         const updateData = {
@@ -188,7 +192,7 @@ async function EditCompany(companyUid) {
             address: modalAdrdess.value, 
             phone: modalPhone.value, 
             name: modalName.value, 
-            categoryUid: modalCategoryId.value, 
+            categoryUid: modalCategoryId, 
             postal_code: modalPostalCode.value, 
             email: modalEmail.value 
         };
