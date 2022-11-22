@@ -1,13 +1,6 @@
-window.Page.categoryRegister = () => {
+window.Page.categoryRegister = async () => {
 
     main.innerHTML = '';
-  
-    let categories = [
-      {
-        id: "1",
-        name: "Restaurantes",
-      },
-    ];
 
     const container = document.createElement("div");
     main.appendChild(container);
@@ -45,33 +38,36 @@ window.Page.categoryRegister = () => {
     function register(inId, inName) {
       const newObj = { id: inId, name: inName };
       PostCategory(newObj);
-      categories.push(newObj); //adicionar via api
-      checkResgiter(); //excluir depois
+      // checkResgiter(); //excluir depois
       window.alert("Categoria adicionada com sucesso!");
     }
 
-    function checkResgiter() {
-      for (let i = 0; i < categories.length; i++) {
-        console.log(
-          "id: " + categories[i].id + "\nname: " + categories[i].name
-        );
-      }
-    }
+    // function checkResgiter() {
+    //   for (let i = 0; i < categories.length; i++) {
+    //     console.log(
+    //       "id: " + categories[i].id + "\nname: " + categories[i].name
+    //     );
+    //   }
+    // }
 
-    btnInsert.addEventListener("click", () => {
+    const categories = await GetCategories();
+
+    btnInsert.addEventListener("click", insertCategory);
+
+    async function insertCategory () {
       const inputId = form.querySelector("[name='inputCodigo']");
       const inputName = form.querySelector("[name='inputCategoria']");
+      const equal = FilterCategoryByCode(categories, inputId.value);
       if (inputId.value.length < 1) {
         window.alert("O código deve ter, pelo menos, um número");
       } else if (inputName.value.length <= 2) {
-        window.alert("O nome deve ter, pelo menos, três letras");
+        window.alert("O nome da categoria deve ter, pelo menos, três letras");
+      } else if (equal.length > 0) {
+        window.alert(`O codigo ${inputId.value} já existe. Insira um novo código`);
       } else {
         register(inputId.value, inputName.value);
-        inputId.value = "";
-        inputName.value = "";
       }
-      //adicionar verificação de codigo e nome já inseridos anteriormente
-    });
-
-    
+    Page.categoryRegister();
+  }
+ 
 }

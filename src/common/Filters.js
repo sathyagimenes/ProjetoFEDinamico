@@ -36,3 +36,10 @@ function filterByCategory (companies, selectedCategory) {
   
     return filteredItems;
   }
+
+  function FilterCategoryByCode(items, codeCategory) {
+    let filteredItems = items;
+    filteredItems = filteredItems.filter(item => item.code.toLocaleLowerCase().includes(codeCategory.toLocaleLowerCase()));
+  
+    return filteredItems;
+  }
