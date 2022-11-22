@@ -1,20 +1,24 @@
 window.Page.categoryRegister = async () => {
   main.innerHTML = "";
 
-  const container = document.createElement("div");
+  const container = CreateElementWithAttribute(
+    "div",
+    "class",
+    "containerCategory"
+  );
   main.appendChild(container);
 
-  const title = document.createElement("h1");
+  const title = CreateElementWithAttribute("h1", "class", "titleCategory");
   title.textContent = "Cadastro de Categorias";
   container.appendChild(title);
 
-  const form = document.createElement("form");
+  const form = CreateElementWithAttribute("form", "class", "forms");
   container.appendChild(form);
 
   const divId = createRows("divId");
   const divCategory = createRows("divCategory");
   const divBtn = document.createElement("div");
-  const btnInsert = CreateButton("Cadastrar");
+  const btnInsert = CreateButton("Cadastrar", "btnCadastrar");
   divBtn.appendChild(btnInsert);
 
   divId.appendChild(
@@ -58,9 +62,7 @@ window.Page.categoryRegister = async () => {
         `O codigo ${inputId.value} já existe. Insira um novo código`
       );
     } else if (sameName.length > 0) {
-      window.alert(
-        `A categoria ${inputName.value} já existe`
-      );
+      window.alert(`A categoria ${inputName.value} já existe`);
     } else {
       register(inputId.value, inputName.value);
     }
