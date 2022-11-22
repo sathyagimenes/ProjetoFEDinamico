@@ -30,9 +30,10 @@ function CreateElementWithAttribute (elName, attrType, attrName) {
     return newElement;
 }
 
-function CreateButton (btnText) {
+function CreateButton (btnText, className = '') {
     const newButton = document.createElement('button');
     newButton.textContent = btnText;
+    newButton.setAttribute('class', className);
     return newButton;
 }
 
@@ -95,13 +96,11 @@ function RecreateTable(table, items, headNames, tag, type) {
 }
 
 async function EditCategory(uid) {
-    if (document.getElementById('edit') != null) {
-        document.getElementById('edit').remove()
-    }
     const categoryList = await GetCategories();
     let chosenCategory = FilterByUid(categoryList, uid)
 
-    const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+    const editDiv = document.getElementById('edit')
+    editDiv.innerHTML = '';
     const idInput = CreateElementWithAttribute('input', 'id', 'id-input');
     const nameInput = CreateElementWithAttribute('input', 'id', 'name-input');
     const editButton = CreateButton('Editar')
@@ -119,11 +118,11 @@ async function EditCategory(uid) {
           }), 1000)
     }
     editDiv.append(idInput, nameInput, editButton);
-    main.appendChild(editDiv)
 }
 
 async function EditCompany(companyUid) {
     const companiesList = await GetCompanies();
+    const categories =  await GetCategories();
     const chosenCompany = FilterByUid(companiesList, companyUid)[0];
 
     const modal = document.querySelector('.modal-companyData')
@@ -135,16 +134,29 @@ async function EditCompany(companyUid) {
 
     for( const key in chosenCompany){
         const containerData = document.createElement('div');
-        debugger
         if(key == "category"){
+            containerData.classList.add('category-info-container');
             for( const chaveDadoCategoria in chosenCompany[key]){
-                const label = document.createElement('label');
-                label.textContent = relationName[chaveDadoCategoria]; 
-                const input = document.createElement('input');
-                input.value = chosenCompany[key][chaveDadoCategoria];
-                containerData.appendChild(label);
-                containerData.appendChild(input);
-                modal.appendChild(containerData);
+                if(chaveDadoCategoria == 'name'){
+                    const label = document.createElement('label');
+                    label.textContent = 'Categoria';
+                    const categorySelection = document.createElement('select');
+                    categorySelection.setAttribute('id', 'categorySelectionField');
+                    const optionDefault = CreateElementWithAttribute('option', 'value', chosenCompany[key][chaveDadoCategoria]);
+                    optionDefault.innerText = chosenCompany[key][chaveDadoCategoria];
+                    categorySelection.appendChild(optionDefault);
+
+                    categories.forEach( category => {
+                    const option = document.createElement('option');
+                    option.setAttribute('value', category.name);
+                    option.innerText = category.name;
+                    categorySelection.appendChild(option);
+                    }); 
+
+                    containerData.appendChild(label);
+                    containerData.appendChild(categorySelection);
+                    modal.appendChild(containerData);
+                }
             }
             continue;
         }
@@ -152,6 +164,7 @@ async function EditCompany(companyUid) {
         label.textContent = relationName[key]; 
         const input = document.createElement('input');
         input.value = chosenCompany[key];
+        input.name = `modal-${key}`;
         containerData.appendChild(label);
         containerData.appendChild(input);
         modal.appendChild(containerData);
@@ -159,22 +172,67 @@ async function EditCompany(companyUid) {
     
     modal.setAttribute('style', 'display: flex;')
 
-    const buttonUpdate = CreateButton('Atualizar');
-    const buttonCancel = CreateButton('Cancelar');
-    console.log(chosenCompany);
+    const buttonUpdate = CreateButton('Atualizar', 'update-company-modal');
+    buttonUpdate.addEventListener('click', () => {
+        debugger
+
+        const modalCategoryName = document.getElementById('categorySelectionField').value;
+
+        const categoryData = categories.filter( item => item.name == modalCategoryName)[0];
+
+        const modalUid = document.getElementsByName('modal-uid')[0];
+        const modalAdrdess = document.getElementsByName('modal-address')[0]; 
+        const modalPhone = document.getElementsByName('modal-phone')[0]; 
+        const modalName = document.getElementsByName('modal-name')[0];
+        const modalCategoryId = categoryData.uid; 
+        const modalPostalCode = document.getElementsByName('modal-postal_code')[0]; 
+        const modalEmail = document.getElementsByName('modal-email')[0]; 
+        const updateData = {
+            uid: modalUid.value, 
+            address: modalAdrdess.value, 
+            phone: modalPhone.value, 
+            name: modalName.value, 
+            categoryUid: modalCategoryId, 
+            postal_code: modalPostalCode.value, 
+            email: modalEmail.value 
+        };
+        UpdateCompany(updateData);
+        modal.setAttribute('style', 'display: none');
+        Page.companiesList();
+    })
+
+    modal.appendChild(buttonUpdate);	
+
+    const buttonCancel = CreateButton('Cancelar', 'delete-company-modal');
+    buttonCancel.addEventListener('click', () => {
+        modal.setAttribute('style', 'display: none');
+    })
+    modal.appendChild(buttonCancel);
 }
 
 async function DeleteCategory(uid) {
-    // const categoryList = await GetCategories();
-    // let chosenCategory = FilterByUid(categoryList, uid)
-    const deleteButton = document.getElementsByClassName(uid)
-    console.log(uid)
-    // deleteButton.addEventListener('click', CallDeleteService)
-    
-    // async function CallDeleteService(){
-    //     await DeleteCategories({uid: uid});
-    //     setTimeout((() => {
-    //         Page.categoryList(); 
-    //       }), 1000)
-    // }
-}
+    if (confirm("Deseja realmente deletar essa categoria?")) { 
+        CallDeleteService(uid, 'category')  
+    }   
+}    
+
+async function DeleteCompany(uid) {
+    if (confirm("Deseja realmente deletar esse estabelecimento?")) {  
+        CallDeleteService(uid, 'company')  
+    }   
+}    
+
+async function CallDeleteService(uid, type){
+        if (type == 'category') {
+            await DeleteCategories(uid);
+            setTimeout((() => {
+                Page.categoryList(); 
+            }), 1000)            
+        }
+        else {
+            await DeleteCompanies(uid);
+            setTimeout((() => {
+                Page.companiesList(); 
+              }), 1000)            
+        }
+    }
