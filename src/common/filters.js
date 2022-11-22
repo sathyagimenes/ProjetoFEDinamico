@@ -39,7 +39,7 @@ function filterByCategory (companies, selectedCategory) {
 
   function FilterCategoryByCode(items, codeCategory) {
     let filteredItems = items;
-    filteredItems = filteredItems.filter(item => item.code.toLocaleLowerCase().includes(codeCategory.toLocaleLowerCase()));
+    filteredItems = filteredItems.filter(item => item.code.toLocaleLowerCase() == codeCategory.toLocaleLowerCase());
   
     return filteredItems;
   }
