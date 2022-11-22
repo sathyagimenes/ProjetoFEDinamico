@@ -112,15 +112,18 @@ async function EditCategory(uid) {
     editButton.addEventListener('click', CallEditService)
     
     async function CallEditService(){
-        const equal = FilterCategoryByCode(categoryList, idInput.value);
+        const codes = FilterCategoryByCode(categoryList, idInput.value);
         if (idInput.value.length < 1) {
-          window.alert("O código deve ter, pelo menos, um número");
+            window.alert("O código deve ter, pelo menos, um número");
         } else if (nameInput.value.length <= 2) {
-          window.alert("O nome da categoria deve ter, pelo menos, três letras");
-        } else if (equal.length > 0) {
-          window.alert(`O codigo ${idInput.value} já existe. Insira um novo código`);
+            window.alert("O nome da categoria deve ter, pelo menos, três letras");
+        } else if (codes.length > 0 && chosenCategory[0].code != idInput.value) {
+            window.alert(`O codigo ${idInput.value} já existe. Insira um novo código`);
+        } else if (chosenCategory[0].code == idInput.value && chosenCategory[0].name == nameInput.value) {
+            window.alert('Não há alterações a serem realizadas.');
         } else {
             await UpdateCategories({uid: uid, code: idInput.value, name: nameInput.value});
+            window.alert('Categoria alterada com sucesso');
             setTimeout((() => {
                 Page.categoryList(); 
             }), 1000)
