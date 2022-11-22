@@ -113,8 +113,8 @@ async function EditCategory(uid) {
         await EditCategories({uid: uid, code: idInput.value, name: nameInput.value});
         const newList = await GetCategories();
         console.log(newList)
-        idInput.value = ''
-        nameInput.value = ''
+        // idInput.value = ''
+        // nameInput.value = ''
     }
 }
 
