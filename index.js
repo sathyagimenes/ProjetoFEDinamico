@@ -10,7 +10,7 @@
     'src/screens/category/categoryRegister/categoryRegister.js',
     'src/screens/companies/companiesList/companiesList.js',
     'src/screens/companies/companiesRegister/companiesRegister.js',
-    './home.js'
+    'src/screens/home/home.js'
   ]) {
     const script = document.createElement("script");
     script.setAttribute("src", `./${file}`);
@@ -25,7 +25,7 @@
     
     window.main = document.createElement('main');
     document.body.appendChild(main);
-    
+
     window.Page.home.addFooter();
     // Page.home();
 
