@@ -21,11 +21,12 @@
   window.addEventListener('load', () => {
     
     // Header();
-    window.Page.home.addHeader ();
+    window.Page.home.addHeader();
     
     window.main = document.createElement('main');
     document.body.appendChild(main);
-
+    
+    window.Page.home.addFooter();
     // Page.home();
 
     // Footer();
