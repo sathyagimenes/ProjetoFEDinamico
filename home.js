@@ -44,6 +44,7 @@ window.Page.home = {
         map.forEach((value, key) => {
             const li = document.createElement('li');
             li.textContent = `${key} - ${value}`;
+            li.addEventListener ("click", )
             ul.appendChild(li);
         });
 
