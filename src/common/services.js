@@ -3,6 +3,7 @@ const baseURL =
   "http://estabelecimentos.letscode.dev.netuno.org:25390/services/";
 
 async function GetCategories() {
+  debugger
   const response = await fetch(`${baseURL}category/list`, {
     method: "POST",
     headers: {
@@ -18,12 +19,15 @@ async function GetCategories() {
     console.log("Erro na comunicação:", error);
   });
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
-    return [];
+    const categoriesStorage = JSON.parse(sessionStorage.getItem('categories'));
+    return categoriesStorage;
   }
 
-  return await response.json();
+  const categories = await response.json();
+  sessionStorage.setItem('categories', JSON.stringify(categories));
+  return categories;
 }
 
 async function UpdateCategories({uid, code, name}) {
@@ -44,7 +48,7 @@ async function UpdateCategories({uid, code, name}) {
     console.log("Erro na comunicação:", error);
   });
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
     return [];
   }
@@ -68,7 +72,7 @@ async function DeleteCategories(uid) {
     console.log("Erro na comunicação:", error);
   });  
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
     return [];
   }
@@ -92,12 +96,15 @@ async function GetCompanies() {
     console.log("Erro na comunicação:", error);
   });
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
-    return [];
+    const categoriesStorage = JSON.parse(sessionStorage.getItem('companies'));
+    return categoriesStorage;
   }
 
-  return await response.json();
+  const companies = await response.json();
+  sessionStorage.setItem('companies', JSON.stringify(companies));
+  return companies;
 }
 
 async function GetCompaniesByCategory(categoryCode) {
@@ -119,7 +126,7 @@ async function GetCompaniesByCategory(categoryCode) {
     console.log("Erro na comunicação:", error);
   });
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
     return [];
   }
@@ -144,7 +151,7 @@ async function PostCategory({ id, name }) {
     console.log("Erro na comunicação:", error);
   });
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
     return [];
   }
@@ -175,7 +182,7 @@ async function PostCompany({ category, name, email, phone, cep, address }) {
     console.log("Erro na comunicação:", error);
   });
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
     return [];
   }
@@ -207,7 +214,7 @@ async function UpdateCompany({uid, address, phone, name, categoryUid, postal_cod
     console.log("Erro na comunicação:", error);
   });
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
     return [];
   }
@@ -216,7 +223,7 @@ async function UpdateCompany({uid, address, phone, name, categoryUid, postal_cod
 }
 
 function errorHandler(response) {
-  console.log("Erro : ", response.status, " - ", response.statusText);
+  console.log("Erro : ", response);
 }
 
 async function DeleteCompanies(uid) {
@@ -235,7 +242,7 @@ async function DeleteCompanies(uid) {
     console.log("Erro na comunicação:", error);
   });  
 
-  if (!response.ok) {
+  if (!response) {
     errorHandler(response);
     return [];
   }
