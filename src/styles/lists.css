@@ -1,3 +1,11 @@
+:root{
+    --color-1: #f7f7f2;
+    --color-2: #e4e6c3;
+    --color-3: #899878;
+    --color-4: #222725;
+    --color-5: #121113;
+  }
+
 tr button {    
     width: 30px;
     height: 30px;
