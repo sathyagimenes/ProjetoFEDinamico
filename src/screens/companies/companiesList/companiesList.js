@@ -1,4 +1,4 @@
-window.Page.companiesList = async () => {
+window.Page.companiesList = async (filter = "") => {
 
     main.innerHTML = '';
 
@@ -51,11 +51,14 @@ window.Page.companiesList = async () => {
       });
     }
 
-    const tableData = selectDataToTable(filteredCompanies);
-
-    const table = CreateTable(tableData, tableHeaderData);
-
-    tableContainer.appendChild(table);
+    if(filter){
+      categoryFilter.value = filter;
+      filterSelectedCategory()
+    }else{
+      const tableData = selectDataToTable(filteredCompanies);
+      const table = CreateTable(tableData, tableHeaderData);
+      tableContainer.appendChild(table);
+    }
 
     const modal = document.createElement('div');
     modal.setAttribute('class', 'modal-companyData');
@@ -67,13 +70,18 @@ window.Page.companiesList = async () => {
     searchInput.addEventListener('keyup', searchData);
 
     function filterSelectedCategory() {
+      const previousTable = document.querySelector('table');
+      if(previousTable){
+        previousTable.remove();
+      }
       if (categoryFilter.value === 'Default') {
         filteredCompanies = companies;
       } else {
         filteredCompanies = filterByCategory(companies, categoryFilter.value);
       }
       const tableData = selectDataToTable(filteredCompanies);
-      RecreateTable(table, tableData, tableHeaderData, tableContainer);
+      const table = CreateTable(tableData, tableHeaderData);
+      tableContainer.appendChild(table);
       }
 
 
@@ -82,7 +90,4 @@ window.Page.companiesList = async () => {
       const tableData = selectDataToTable(filteredCompaniesByKeyWords);
       RecreateTable(table, tableData, tableHeaderData, tableContainer);
     }
-
-    
-    
 }
