@@ -59,15 +59,15 @@ function CreateTable (row, tableHead, type) {
                 const buttonEdit = document.createElement('button');
                 const iconEdit = document.createElement('img');
                 iconEdit.setAttribute('src', './src/assets/imgs/edit_icon.svg');
-                buttonEdit.setAttribute('id',Object.values(row[i])[0]);
+                buttonEdit.setAttribute('class',Object.values(row[i])[0]);
                 buttonEdit.appendChild(iconEdit);
-                buttonEdit.setAttribute('onclick', type == 'category' ? 'EditCategory(this.id)' : 'EditCompany(this.id)')
+                buttonEdit.setAttribute('onclick', type == 'category' ? 'EditCategory(this.className)' : 'EditCompany(this.className)')
                 buttonsTd.appendChild(buttonEdit);        
                 const buttonDelete = document.createElement('button');
                 const iconDelete = document.createElement('img');
                 iconDelete.setAttribute('src', './src/assets/imgs/delete_icon.svg');
-                buttonDelete.setAttribute('id',Object.values(row[i])[0]);
-                buttonDelete.setAttribute('onclick', type == 'category' ? 'EditCategory(this.id)' : 'EditCompany(this.id)')
+                buttonDelete.setAttribute('class',Object.values(row[i])[0]);
+                buttonDelete.setAttribute('onclick', type == 'category' ? "DeleteCategory(this.className)" : "DeleteCompany(this.className)")
                 buttonDelete.appendChild(iconDelete);
                 buttonsTd.appendChild(buttonDelete);
                 tr.appendChild(buttonsTd);
@@ -158,4 +158,20 @@ async function EditCompany(companyUid) {
 
     const buttonUpdate = CreateButton('Atualizar');
     const buttonCancel = CreateButton('Cancelar');
+    console.log(chosenCompany);
+}
+
+async function DeleteCategory(uid) {
+    // const categoryList = await GetCategories();
+    // let chosenCategory = FilterByUid(categoryList, uid)
+    const deleteButton = document.getElementsByClassName(uid)
+    console.log(uid)
+    // deleteButton.addEventListener('click', CallDeleteService)
+    
+    // async function CallDeleteService(){
+    //     await DeleteCategories({uid: uid});
+    //     setTimeout((() => {
+    //         Page.categoryList(); 
+    //       }), 1000)
+    // }
 }
