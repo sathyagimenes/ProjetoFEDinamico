@@ -63,7 +63,6 @@ window.Page.companiesList = async (filter = "") => {
     }else{
       const tableData = selectDataToTable(filteredCompanies);
       const table = CreateTable(tableData, tableHeaderData);
-      table.setAttribute('class', 'table-companiesList');
       tableContainer.appendChild(table);
     }
 
@@ -88,7 +87,6 @@ window.Page.companiesList = async (filter = "") => {
       }
       const tableData = selectDataToTable(filteredCompanies);
       const table = CreateTable(tableData, tableHeaderData);
-      table.setAttribute('class', 'table-companiesList');
       tableContainer.appendChild(table);
       }
 
@@ -97,8 +95,6 @@ window.Page.companiesList = async (filter = "") => {
       filteredCompaniesByKeyWords = FilterByKeyWord(filteredCompanies, searchInput.value);
       const tableData = selectDataToTable(filteredCompaniesByKeyWords);
       const table = document.querySelector('.table-companiesList');
-      const newTable = RecreateTable(table, tableData, tableHeaderData, tableContainer);
-      newTable.setAttribute('class', 'table-companiesList');
-
+      RecreateTable(table, tableData, tableHeaderData, tableContainer);
     }
 }

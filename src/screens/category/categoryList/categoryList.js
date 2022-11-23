@@ -30,8 +30,6 @@ window.Page.categoryList = async () => {
 
     let newTable = CreateTable(categories, tableHeadNames, 'category');
 
-    newTable.setAttribute('class', 'table-categories');
-
     searchDiv.append(searchInput, addButton)
     tableDiv.appendChild(newTable)        
     contentDiv.append(searchDiv, tableDiv)

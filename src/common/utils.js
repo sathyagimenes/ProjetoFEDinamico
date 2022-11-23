@@ -30,6 +30,7 @@ function CreateButton (btnText, className = '') {
 
 function CreateTable (row, tableHead, type) {
     const table = document.createElement('table');
+    type == 'category' ? table.setAttribute('class', 'table-categories') : table.setAttribute('class', 'table-companiesList')
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
