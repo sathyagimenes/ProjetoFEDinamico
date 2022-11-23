@@ -6,6 +6,7 @@ window.Page.companiesRegister = async () => {
     const container = document.createElement("div");
     container.setAttribute('class', 'container');
     const formsTitle = document.createElement("h2");
+    formsTitle.setAttribute('class', 'titleCadastroC');
     const form = document.createElement("form");
 
     const categoryFilter = document.createElement('select');
@@ -76,6 +77,7 @@ window.Page.companiesRegister = async () => {
 
     const divButton = document.createElement("div");
     const btnRegister = CreateButton("Cadastrar");
+    btnRegister.setAttribute('class', 'btnCadastroC');
     divButton.appendChild(btnRegister);
     form.appendChild(divButton);
 
