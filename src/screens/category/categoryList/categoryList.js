@@ -8,7 +8,7 @@ window.Page.categoryList = async () => {
         const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
         const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
         const addButton = CreateButton('Adicionar')
-        addButton.setAttribute('onclick', "location.href = '../categoryRegister/categoryRegister.html'")
+        addButton.addEventListener('click', () => {window.Page.categoryRegister()})
 
         /* Listagem */        
         const categoryList = await GetCategories();
@@ -20,7 +20,7 @@ window.Page.categoryList = async () => {
                 code: element.code,
                 name: element.name
             })
-        });        
+        });
 
         let newTable = CreateTable(categories, tableHeadNames, 'category')
 
