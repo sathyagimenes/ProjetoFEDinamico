@@ -24,15 +24,16 @@ window.Page.companiesRegister = async () => {
 
     main.appendChild(container);
     container.appendChild(formsTitle);
-    container.appendChild(categoryFilter);
+    // container.appendChild(categoryFilter);
     container.appendChild(form);
 
     formsTitle.textContent = "Cadastre seu estabelecimento";
-
+    const row1 = createRows("row1");
     const row2 = createRows("row2");
     const row3 = createRows("row3");
     const row4 = createRows("row4");
 
+    row1.appendChild(categoryFilter);
     row2.appendChild(
       createFields({
         fieldName: "fieldName",
@@ -71,7 +72,7 @@ window.Page.companiesRegister = async () => {
       })
     );
 
-    form.append(row2, row3, row4);
+    form.append(row1, row2, row3, row4);
 
     const divButton = document.createElement("div");
     const btnRegister = CreateButton("Cadastrar");
