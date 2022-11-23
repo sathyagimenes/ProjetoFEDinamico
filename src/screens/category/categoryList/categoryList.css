@@ -1,8 +1,9 @@
 #categoryListContent {
     display: flex;
-    min-height: 100vh;
+    min-height: 80vh;
+    height: fit-content;
     flex-direction: column;
-    justify-content: space-around;
+    padding: 50px;
     align-items: center;
     background-color: var(--color-2);
 }
