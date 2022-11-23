@@ -84,6 +84,7 @@ function RecreateTable(table, items, headNames, tag, type) {
     clearTable();
     table = CreateTable(items, headNames, type)
     tag.appendChild(table)
+    return table;
 }
 
 async function EditCategory(uid) {
@@ -129,7 +130,9 @@ async function EditCompany(companyUid) {
     const categories =  await GetCategories();
     const chosenCompany = FilterByUid(companiesList, companyUid)[0];
 
-    const modal = document.querySelector('.modal-companyData')
+    const modal = document.querySelector('.modal-companyData');
+
+    const modalDataContainer = CreateElementWithAttribute('div', 'class', 'modal-company-dataContainer');
 
     modal.innerHTML = '';
 
@@ -138,8 +141,9 @@ async function EditCompany(companyUid) {
 
     for( const key in chosenCompany){
         const containerData = document.createElement('div');
+        containerData.setAttribute('class', 'modal-inputContainer');
         if(key == "category"){
-            containerData.classList.add('category-info-container');
+            containerData.classList.add('category-info-container', 'modal-inputContainer');
             for( const chaveDadoCategoria in chosenCompany[key]){
                 if(chaveDadoCategoria == 'name'){
                     const label = document.createElement('label');
@@ -159,7 +163,7 @@ async function EditCompany(companyUid) {
 
                     containerData.appendChild(label);
                     containerData.appendChild(categorySelection);
-                    modal.appendChild(containerData);
+                    modalDataContainer.appendChild(containerData);
                 }
             }
             continue;
@@ -171,13 +175,18 @@ async function EditCompany(companyUid) {
         input.name = `modal-${key}`;
         containerData.appendChild(label);
         containerData.appendChild(input);
-        modal.appendChild(containerData);
+        modalDataContainer.appendChild(containerData);
     }
     
     modal.setAttribute('style', 'display: flex;')
 
+    setTimeout(()=> {
+        document.getElementsByName('modal-uid')[0].readOnly = true;
+    }, 500)
+    
     const buttonUpdate = CreateButton('Atualizar', 'update-company-modal');
     buttonUpdate.addEventListener('click', () => {
+        
         const modalCategoryName = document.getElementById('categorySelectionField').value;
 
         const categoryData = categories.filter( item => item.name == modalCategoryName)[0];
@@ -203,13 +212,19 @@ async function EditCompany(companyUid) {
         Page.companiesList();
     })
 
-    modal.appendChild(buttonUpdate);	
+    const containerButtonsModal = CreateElementWithAttribute('div', 'class', 'modal-buttons-container');
+
+    containerButtonsModal.appendChild(buttonUpdate);	
 
     const buttonCancel = CreateButton('Cancelar', 'delete-company-modal');
     buttonCancel.addEventListener('click', () => {
         modal.setAttribute('style', 'display: none');
     })
-    modal.appendChild(buttonCancel);
+    containerButtonsModal.appendChild(buttonCancel);
+
+    modalDataContainer.appendChild(containerButtonsModal);
+
+    modal.appendChild(modalDataContainer);
 }
 
 async function DeleteCategory(uid) {

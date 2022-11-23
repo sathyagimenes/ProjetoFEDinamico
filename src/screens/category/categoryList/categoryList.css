@@ -1,9 +1,14 @@
 main {
     display: flex;
+    min-height: 100vh;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin: 10vw 15vw;
+    background-color: var(--color-2);
+}
+
+main input{
+    max-width: 300px;
 }
 
 table {
@@ -30,5 +35,7 @@ td, tr {
 button {
     width: 70px;
     margin: 10px;
+
 }
+
 

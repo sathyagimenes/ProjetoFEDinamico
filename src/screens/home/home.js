@@ -3,8 +3,16 @@ window.Page.home = {
     addHeader: () => {
         const header = document.createElement('header');
         const nav = CreateElementWithAttribute('nav', 'class', 'headerNav');
+        nav.setAttribute('id', 'headerNav');
         const ul = document.createElement('ul');
 
+        const iconOpen = document.createElement('img');
+        iconOpen.setAttribute('src', './src/assets/imgs/bars_icon.svg');
+        iconOpen.addEventListener('click', () => {Page.home.showMenu()});
+        const iconClose = document.createElement('img');
+        iconClose.setAttribute('src', './src/assets/imgs/x_icon.svg');
+        iconClose.addEventListener('click', () => {Page.home.hideMenu()});
+        nav.appendChild(iconOpen);
         const navLinks = [
             {text: "Home", onClick : () => {Page.home.addHomeBody()}},
             {text: "Categorias", onClick : () => {Page.categoryList()}},
@@ -20,8 +28,12 @@ window.Page.home = {
             ul.appendChild(item);
         });
         nav.appendChild(ul);
+        nav.appendChild(iconClose);
         header.appendChild(nav);
         document.body.appendChild(header);
+
+        
+
     },
     addFooter: async () => {
         const footer = document.createElement('footer');
@@ -88,8 +100,13 @@ window.Page.home = {
         section.appendChild(divRow);
 
         main.appendChild(section);
-
-        
-
+    }, 
+    hideMenu : () => {
+        const navElements = document.getElementById('headerNav');
+        navElements.style.right = "-200px";
+    },
+    showMenu : () => {
+        const navElements = document.getElementById('headerNav');
+        navElements.style.right = "0";
     }
 };
