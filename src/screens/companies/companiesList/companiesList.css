@@ -182,10 +182,11 @@
     flex-direction: column; 
     width: auto; 
     justify-content: center; 
-    align-items: center;;
+    align-items: center;
   }
   .searchInput-companiesList{
     margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .table-companiesList > tbody > tr > td > button{
