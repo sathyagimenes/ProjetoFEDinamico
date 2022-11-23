@@ -1,42 +1,50 @@
 window.Page.categoryList = async () => {
 
-    main.innerHTML = '';    
-        const tableHeadNames = ['ID', 'Categoria']
-        let categories= []
+    main.innerHTML = '';
 
-        const searchDiv = CreateElementWithAttribute('div', 'id', 'search')
-        const tableDiv = CreateElementWithAttribute('div', 'id', 'table')
-        const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...')
-        const addButton = CreateButton('Adicionar')
-        addButton.addEventListener('click', () => {window.Page.categoryRegister()})
+    const contentDiv = CreateElementWithAttribute('div', 'id', 'categoryListContent');
 
-        /* Listagem */        
-        const categoryList = await GetCategories();
-        categoryList.sort((a,b) => a.code - b.code);
+    main.appendChild(contentDiv);
 
-        categoryList.forEach(element => {
-                categories.push({
-                uid: element.uid,
-                code: element.code,
-                name: element.name
-            })
-        });
+    const tableHeadNames = ['ID', 'Categoria']
+    let categories= []
 
-        let newTable = CreateTable(categories, tableHeadNames, 'category')
+    const searchDiv = CreateElementWithAttribute('div', 'id', 'searchDiv');
+    const tableDiv = CreateElementWithAttribute('div', 'id', 'tableDiv');
+    const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...');
+    searchInput.setAttribute('class', 'searchInputCategory');
+    const addButton = CreateButton('Adicionar', 'addButtonCategory');
+    addButton.addEventListener('click', () => {window.Page.categoryRegister()})
 
-        searchDiv.append(searchInput, addButton)
-        tableDiv.appendChild(newTable)        
-        main.append(searchDiv, tableDiv)
+    /* Listagem */        
+    const categoryList = await GetCategories();
+    categoryList.sort((a,b) => a.code - b.code);
 
-        /* Busca */
-        searchInput.addEventListener('keyup', TextChange)
+    categoryList.forEach(element => {
+            categories.push({
+            uid: element.uid,
+            code: element.code,
+            name: element.name
+        })
+    });
 
-        function TextChange(e){
-            filteredCategories = FilterByKeyWord(categories, e.target.value);
-            RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv, 'category');
-        }  
+    let newTable = CreateTable(categories, tableHeadNames, 'category');
 
-        /* Edição */
-        const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
-        main.appendChild(editDiv)
+    newTable.setAttribute('class', 'table-categories');
+
+    searchDiv.append(searchInput, addButton)
+    tableDiv.appendChild(newTable)        
+    contentDiv.append(searchDiv, tableDiv)
+
+    /* Busca */
+    searchInput.addEventListener('keyup', TextChange)
+
+    function TextChange(e){
+        filteredCategories = FilterByKeyWord(categories, e.target.value);
+        RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv, 'category');
+    }  
+
+    /* Edição */
+    const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
+    contentDiv.appendChild(editDiv)
 };

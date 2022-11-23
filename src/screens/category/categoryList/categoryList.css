@@ -1,4 +1,4 @@
-main {
+#categoryListContent {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -7,35 +7,86 @@ main {
     background-color: var(--color-2);
 }
 
-main input{
-    max-width: 300px;
+#searchDiv {
+    width: 40vw;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
-table {
+.searchInputCategory{
+    width: 150px;
+    font-size: 14px;
+    border-radius: 6px;
+    padding-left: 10px;
+    margin-left: 10px;
+  }
+
+  .addButtonCategory, #edit > button{
+    width: auto;
+    padding: 8px 20px;
+    background-color: var(--color-3);
+    border: 2px solid var(--color-3);
+    color: var(--color-1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+  
+  .addButtonCategory:hover, #edit > button:hover{
+    background-color: var(--color-1);
+    color: var(--color-3);
+    transition: ease-in 0.3s;
+  }
+
+#tableDiv {
     border: solid 5px black; 
     border-collapse: collapse;
     font-size: 30px;
     text-align: center;
-    width: 35vw;
+    width: 40vw;
     margin: 20px;
+    display: flex;
+    align-items: center;
+  justify-content: center; 
 }
 
-thead {
-    font-size: 30px;
+.table-categories{
+    padding: 10px;
+    width:100%; 
+    border: 2px solid #000;
+    border-collapse: collapse;
+    font-size: 3vw;
 }
 
-td, tr {
+.table-categories > tbody > tr > td {
     border: solid 1px black;
 }
 
-#search {
-    padding: 10px;
-}
+.table-categories > tbody > tr > td > button{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: var(--color-1);
+    box-shadow: none;
+    border-radius: 6px;
+  }
+  
+  .table-categories > tbody > tr > td > button:hover{
+    background-color: var(--color-3);
+    transition: ease-in 0.25s;
+  }
 
-button {
-    width: 70px;
+  #edit > input{
+    width: 150px;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 16px;
     margin: 10px;
+  }
 
-}
 
 
