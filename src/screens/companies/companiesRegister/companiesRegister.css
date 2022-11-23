@@ -1,16 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 main {
     font-family: Arial;
+    min-height: 100vh;
     font-size: 10px;
     margin: 0;
     padding: 0;
+    background-color: var(--color-2);
 }
 .container {
     justify-content: center;
     display:flex;
     flex-direction: column;
     width:100%;
-    height:517px;
-    background-color: var(--color-2);
+    height:auto;
+    padding-top: 25px;
+    
 }
 .titleCadastroC{
     text-align: center;
@@ -39,7 +46,7 @@ select {
 }
 form {
     width: 70%;
-    height:75%;
+    height:auto;
     margin: 20px auto;
     padding: 20px;
     background: #f1f1f1;
@@ -84,4 +91,9 @@ input[name="inputName"],[name="inputEmail"],[name="inputCEP"],[name="inputTeleph
         height: 100%;
     }
 
+    form{
+        height: auto;
+        margin-top: 15px;
+        padding-top: 20px;
+    }
 }

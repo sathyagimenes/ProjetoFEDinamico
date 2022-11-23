@@ -2,7 +2,8 @@ window.Page.home = {
 
     addHeader: () => {
         const header = document.createElement('header');
-        const nav = CreateElementWithAttribute('nav', 'class', 'headerNav');
+        const navHeader = document.createElement('nav');
+        const nav = CreateElementWithAttribute('div', 'class', 'headerNav');
         nav.setAttribute('id', 'headerNav');
         const ul = document.createElement('ul');
 
@@ -29,7 +30,8 @@ window.Page.home = {
         });
         nav.appendChild(ul);
         nav.appendChild(iconClose);
-        header.appendChild(nav);
+        navHeader.appendChild(nav);
+        header.appendChild(navHeader);
         document.body.appendChild(header);
 
         
@@ -104,9 +106,11 @@ window.Page.home = {
     hideMenu : () => {
         const navElements = document.getElementById('headerNav');
         navElements.style.right = "-200px";
+        navElements.style.backgroundColor = "0 #222725"
     },
     showMenu : () => {
         const navElements = document.getElementById('headerNav');
         navElements.style.right = "0";
+        navElements.style.backgroundColor = "1 #222725"
     }
 };
