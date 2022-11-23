@@ -96,6 +96,9 @@ window.Page.companiesList = async (filter = "") => {
     function searchData() {
       filteredCompaniesByKeyWords = FilterByKeyWord(filteredCompanies, searchInput.value);
       const tableData = selectDataToTable(filteredCompaniesByKeyWords);
-      RecreateTable(table, tableData, tableHeaderData, tableContainer);
+      const table = document.querySelector('.table-companiesList');
+      const newTable = RecreateTable(table, tableData, tableHeaderData, tableContainer);
+      newTable.setAttribute('class', 'table-companiesList');
+
     }
 }

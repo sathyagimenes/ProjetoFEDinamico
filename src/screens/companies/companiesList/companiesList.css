@@ -1,4 +1,5 @@
 .page-container-companiesList{
+  position: relative;
   display: flex; 
   flex-direction: column; 
   align-items: center; 
@@ -23,12 +24,19 @@
 }
 
 .searchInput-companiesList{
+  width: 150px;
   margin: 0;
   font-size: 14px;
   border-radius: 6px;
+  padding-left: 10px;
+  margin-left: 10px;
 }
 
-.AddButton-companiesList{
+.searchInput-companiesList::placeholder{
+  padding-left: 10px;
+}
+
+.AddButton-companiesList, .update-company-modal{
   width: auto;
   padding: 8px 20px;
   background-color: var(--color-3);
@@ -41,7 +49,7 @@
   box-shadow: none;
 }
 
-.AddButton-companiesList:hover{
+.AddButton-companiesList:hover, .update-company-modal:hover{
   background-color: var(--color-1);
   color: var(--color-3);
   transition: ease-in 0.3s;
@@ -54,17 +62,15 @@
   justify-content: center; 
 }
 
-
-
 .table-companiesList {
   width:100%; 
   border: 2px solid #000;
   border-collapse: collapse;
-  font-size: 1.5vw;
+  font-size: 2vw;
 }
 
 .table-companiesList > thead> th{
-  font-size: 1.5vw;
+  font-size: 2vw;
   padding: 10px; 
   text-align: center; 
   border: 2px solid #000;
@@ -100,4 +106,98 @@
   padding: 10px; 
   text-align: center; 
   border:2px solid #000;
+}
+
+.modal-companyData{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100%;
+  overflow-y: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-company-dataContainer{
+  width: 400px;
+  background-color: var(--color-4);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  padding: 20px;
+}
+
+.modal-inputContainer{
+  width: 350px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-inputContainer > label{
+  color: var(--color-1);
+  font-size: 16px;
+}
+
+.modal-inputContainer > input, #categorySelectionField{
+  width: 250px;
+}
+
+.modal-buttons-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-company-modal{
+  width: auto;
+  padding: 8px 20px;
+  background-color: rgba(224, 26, 26, 0.904);
+  border: 2px solid rgba(224, 26, 26, 0.904);
+  color: var(--color-1);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.delete-company-modal:hover{
+  background-color: var(--color-1);
+  color: rgba(224, 26, 26, 0.904);
+  transition: ease-in 0.3s;
+}
+
+@media (max-width: 500px){
+  .search-container-companiesList{
+    margin: 10px; 
+    display: flex;
+    flex-direction: column; 
+    width: auto; 
+    justify-content: center; 
+    align-items: center;;
+  }
+  .searchInput-companiesList{
+    margin-top: 10px;
+  }
+
+  .table-companiesList > tbody > tr > td > button{
+    width: 4vw;
+    height: 4vw;
+  }
+
+  .table-companiesList > tbody > tr > td > button > img{
+    width: 3vw;
+    height: 3vw;
+  }
+  
+  .table-companiesList > tbody > tr > td:last-child{
+    width: auto;
+    padding: 2px;
+    margin: 2px;
+  }
 }
