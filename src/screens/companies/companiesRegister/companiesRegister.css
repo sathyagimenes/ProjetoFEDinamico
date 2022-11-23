@@ -39,9 +39,9 @@ div[name="row2"],[name="row3"],[name="row4"]{
     justify-content: space-around;
 }
 select {
-    width:25%;
+    width:30%;
     border-radius: 8px;
-    border-color: black;
+    border-color: var(--color-5);
     text-align: center;
 }
 form {
@@ -49,7 +49,7 @@ form {
     height:auto;
     margin: 20px auto;
     padding: 20px;
-    background: #f1f1f1;
+    background:var(--color-1);
     border-radius: 20px;
     text-align: center;
     background: var(--color-3);
@@ -95,5 +95,8 @@ input[name="inputName"],[name="inputEmail"],[name="inputCEP"],[name="inputTeleph
         height: auto;
         margin-top: 15px;
         padding-top: 20px;
+    }
+    select{
+        width: 40%;
     }
 }
