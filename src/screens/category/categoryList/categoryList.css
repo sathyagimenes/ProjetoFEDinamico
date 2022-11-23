@@ -59,7 +59,7 @@
     width:100%; 
     border: 2px solid #000;
     border-collapse: collapse;
-    font-size: 3vw;
+    font-size: 16px;
 }
 
 .table-categories > tbody > tr > td {
@@ -73,8 +73,9 @@
     background-color: var(--color-1);
     box-shadow: none;
     border-radius: 6px;
+    margin: 10px 5px;
   }
-  
+
   .table-categories > tbody > tr > td > button:hover{
     background-color: var(--color-3);
     transition: ease-in 0.25s;
@@ -88,5 +89,27 @@
     margin: 10px;
   }
 
+  @media (max-width: 600px){
+    #searchDiv {
+      width: 90vw;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+  }
 
+  #edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
+  #tableDiv {
+    width: 70vw;
+    margin: 10px;
+}
+  
+}
+
+ 
