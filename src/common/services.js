@@ -27,6 +27,7 @@ async function CallApi({ method = 'POST', service, body }) {
     });
 
     if (!response.ok) {
+      alert('Ocorreu um erro na comunicação com o servidor!');
       console.error('Ocorreu um erro: ', response);
       return [];
     }
