@@ -26,9 +26,9 @@
 }
 
 input[name="inputCodigo"],[name="inputCategoria"]{
-	height: 20px;
+	height: 35px;
 	width: 200px;
-	padding: 5px;
+	padding: 10px;
 	font-size: 20px;
 	text-align: center;
 	border-radius: 8px;

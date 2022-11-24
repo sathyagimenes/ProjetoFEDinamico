@@ -6,22 +6,25 @@ window.Page.categoryList = async () => {
 
     main.appendChild(contentDiv);
 
-    const tableHeadNames = ['ID', 'Categoria']
-    let categories= []
+    const tableHeadNames = ['ID', 'Categoria'];
+    const categories = [];
 
     const searchDiv = CreateElementWithAttribute('div', 'id', 'searchDiv');
     const tableDiv = CreateElementWithAttribute('div', 'id', 'tableDiv');
-    const searchInput = CreateElementWithAttribute('input','placeholder', 'Buscar palavra-chave...');
+    const searchInput = CreateElementWithAttribute('input', 'placeholder', 'Buscar palavra-chave...');
     searchInput.setAttribute('class', 'searchInputCategory');
     const addButton = CreateButton('Adicionar', 'addButtonCategory');
-    addButton.addEventListener('click', () => {window.Page.categoryRegister()})
+    addButton.addEventListener('click', () => { window.Page.categoryRegister() });
 
-    /* Listagem */        
-    const categoryList = await GetCategories();
-    categoryList.sort((a,b) => a.code - b.code);
+    /* Listagem */
+    const categoryList = await CallApi({
+        service: 'category/list',
+        body: getCategoryBody
+    });
+    categoryList.sort((a, b) => a.code - b.code);
 
     categoryList.forEach(element => {
-            categories.push({
+        categories.push({
             uid: element.uid,
             code: element.code,
             name: element.name
@@ -30,19 +33,19 @@ window.Page.categoryList = async () => {
 
     let newTable = CreateTable(categories, tableHeadNames, 'category');
 
-    searchDiv.append(searchInput, addButton)
-    tableDiv.appendChild(newTable)        
-    contentDiv.append(searchDiv, tableDiv)
+    searchDiv.append(searchInput, addButton);
+    tableDiv.appendChild(newTable);
+    contentDiv.append(searchDiv, tableDiv);
 
     /* Busca */
-    searchInput.addEventListener('keyup', TextChange)
+    searchInput.addEventListener('keyup', TextChange);
 
-    function TextChange(e){
+    function TextChange(e) {
         filteredCategories = FilterByKeyWord(categories, e.target.value);
         RecreateTable(newTable, filteredCategories, tableHeadNames, tableDiv, 'category');
-    }  
+    }
 
     /* Edição */
-    const editDiv = CreateElementWithAttribute('div', 'id', 'edit')
-    contentDiv.appendChild(editDiv)
+    const editDiv = CreateElementWithAttribute('div', 'id', 'edit');
+    contentDiv.appendChild(editDiv);
 };

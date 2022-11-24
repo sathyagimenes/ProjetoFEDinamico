@@ -27,3 +27,12 @@ tr button img {
 body {
     height: fit-content;
 }
+
+main {
+    font-family: Arial;
+    min-height: 80vh;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-2);
+}

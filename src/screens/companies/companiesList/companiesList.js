@@ -1,100 +1,103 @@
-window.Page.companiesList = async (filter = "") => {
+window.Page.companiesList = async (filter = '') => {
 
-    main.innerHTML = '';
+  main.innerHTML = '';
 
-    const containerCompaniesListPage = CreateElementWithAttribute('div', 'class', 'page-container-companiesList');
-    main.appendChild(containerCompaniesListPage);
+  const containerCompaniesListPage = CreateElementWithAttribute('div', 'class', 'page-container-companiesList');
+  main.appendChild(containerCompaniesListPage);
 
-    const containerBusca = CreateElementWithAttribute('div', 'class', 'search-container-companiesList');
+  const containerBusca = CreateElementWithAttribute('div', 'class', 'search-container-companiesList');
 
-    const categoryFilter = CreateElementWithAttribute('select','class', 'select-companiesList');
-    const optionDefault = CreateElementWithAttribute('option', 'value', 'Default');
-    optionDefault.innerText = "Filtro por Categoria";
-    categoryFilter.appendChild(optionDefault);
+  const categoryFilter = CreateElementWithAttribute('select', 'class', 'select-companiesList');
+  const optionDefault = CreateElementWithAttribute('option', 'value', 'Default');
+  optionDefault.innerText = 'Filtro por Categoria';
+  categoryFilter.appendChild(optionDefault);
 
-    const categories = await GetCategories();
+  const categories = await CallApi({
+    service: 'category/list',
+    body: getCategoryBody
+});
 
-    categories.forEach( category => {
-      const option = document.createElement('option');
-      option.setAttribute('value', category.name);
-      option.innerText = category.name;
-      categoryFilter.appendChild(option);
+  categories.forEach(category => {
+    const option = document.createElement('option');
+    option.setAttribute('value', category.name);
+    option.innerText = category.name;
+    categoryFilter.appendChild(option);
+  });
+
+  const searchInput = CreateElementWithAttribute('input', 'placeholder', 'buscar por...');
+  searchInput.setAttribute('class', 'searchInput-companiesList');
+  const addButton = CreateButton('Cadastro', 'AddButton-companiesList');
+
+
+  addButton.addEventListener('click', () => { Page.companiesRegister() });
+
+  containerBusca.appendChild(categoryFilter);
+  containerBusca.appendChild(searchInput);
+  containerBusca.appendChild(addButton);
+
+  containerCompaniesListPage.appendChild(containerBusca);
+
+  const tableContainer = CreateElementWithAttribute('div', 'class', 'table-container-companiesList');
+  containerCompaniesListPage.appendChild(tableContainer);
+
+  const tableHeaderData = ['Categoria', 'Nome', 'Endereço', 'CEP', 'Telefone', 'E-mail'];
+
+  const companies = await CallApi({ method: 'POST', service: 'establishment/list', body: getCompaniesBody});
+
+  let filteredCompanies = companies;
+
+  function selectDataToTable(companies) {
+    return companies.map(company => {
+      return {
+        uid: company.uid,
+        category: company.category.name,
+        name: company.name,
+        address: company.address,
+        postalCode: company.postal_code,
+        phone: company.phone,
+        email: company.email
+      };
     });
-    
-    const searchInput = CreateElementWithAttribute('input', 'placeholder', 'buscar por...');
-    searchInput.setAttribute('class', 'searchInput-companiesList');
-    const addButton = CreateButton('Cadastro', 'AddButton-companiesList');
+  }
 
+  if (filter) {
+    categoryFilter.value = filter;
+    filterSelectedCategory();
+  } else {
+    const tableData = selectDataToTable(filteredCompanies);
+    const table = CreateTable(tableData, tableHeaderData);
+    tableContainer.appendChild(table);
+  }
 
-    addButton.addEventListener('click', () =>{Page.companiesRegister()});
+  const modal = document.createElement('div');
+  modal.setAttribute('class', 'modal-companyData');
+  modal.setAttribute('style', 'display: none;');
+  containerCompaniesListPage.appendChild(modal);
 
-    containerBusca.appendChild(categoryFilter);
-    containerBusca.appendChild(searchInput);
-    containerBusca.appendChild(addButton);
+  categoryFilter.addEventListener('change', filterSelectedCategory);
 
-    containerCompaniesListPage.appendChild(containerBusca);
+  searchInput.addEventListener('keyup', searchData);
 
-    const tableContainer = CreateElementWithAttribute('div', 'class', 'table-container-companiesList');
-    containerCompaniesListPage.appendChild(tableContainer);
-
-    const tableHeaderData = ['Categoria', 'Nome', 'Endereço', 'CEP', 'Telefone', 'E-mail'];
-
-    const companies = await GetCompanies();
-
-    let filteredCompanies = companies;
-
-    function selectDataToTable(companies) {
-      return companies.map( company => {
-        return {
-          uid: company.uid,
-          category: company.category.name,
-          name: company.name,
-          address: company.address,
-          postalCode: company.postal_code,
-          phone: company.phone,
-          email: company.email
-        }
-      });
+  function filterSelectedCategory() {
+    const previousTable = document.querySelector('table');
+    if (previousTable) {
+      previousTable.remove();
     }
-
-    if(filter){
-      categoryFilter.value = filter;
-      filterSelectedCategory()
-    }else{
-      const tableData = selectDataToTable(filteredCompanies);
-      const table = CreateTable(tableData, tableHeaderData);
-      tableContainer.appendChild(table);
+    if (categoryFilter.value === 'Default') {
+      filteredCompanies = companies;
+    } else {
+      filteredCompanies = filterByCategory(companies, categoryFilter.value);
     }
-
-    const modal = document.createElement('div');
-    modal.setAttribute('class', 'modal-companyData');
-    modal.setAttribute('style', 'display: none;');
-    containerCompaniesListPage.appendChild(modal);
-
-    categoryFilter.addEventListener('change', filterSelectedCategory);
-
-    searchInput.addEventListener('keyup', searchData);
-
-    function filterSelectedCategory() {
-      const previousTable = document.querySelector('table');
-      if(previousTable){
-        previousTable.remove();
-      }
-      if (categoryFilter.value === 'Default') {
-        filteredCompanies = companies;
-      } else {
-        filteredCompanies = filterByCategory(companies, categoryFilter.value);
-      }
-      const tableData = selectDataToTable(filteredCompanies);
-      const table = CreateTable(tableData, tableHeaderData);
-      tableContainer.appendChild(table);
-      }
+    const tableData = selectDataToTable(filteredCompanies);
+    const table = CreateTable(tableData, tableHeaderData);
+    tableContainer.appendChild(table);
+  }
 
 
-    function searchData() {
-      filteredCompaniesByKeyWords = FilterByKeyWord(filteredCompanies, searchInput.value);
-      const tableData = selectDataToTable(filteredCompaniesByKeyWords);
-      const table = document.querySelector('.table-companiesList');
-      RecreateTable(table, tableData, tableHeaderData, tableContainer);
-    }
+  function searchData() {
+    filteredCompaniesByKeyWords = FilterByKeyWord(filteredCompanies, searchInput.value);
+    const tableData = selectDataToTable(filteredCompaniesByKeyWords);
+    const table = document.querySelector('.table-companiesList');
+    RecreateTable(table, tableData, tableHeaderData, tableContainer);
+  }
 }
