@@ -37,6 +37,7 @@ function CreateTable (row, tableHead, type) {
     tableHead.forEach(item => {
         const th = document.createElement('th')
         th.innerText = item;
+        th.setAttribute('class', item)
         thead.appendChild(th);
     });
 
@@ -45,6 +46,7 @@ function CreateTable (row, tableHead, type) {
         for(let j = 1; j < tableHead.length + 1; j++) {
             const td = document.createElement("td");
             const texto = document.createTextNode(Object.values(row[i])[j]);
+            td.setAttribute('class', Object.keys(row[i])[j]);
             td.appendChild(texto);
             tr.appendChild(td);
             if (j == tableHead.length ) {

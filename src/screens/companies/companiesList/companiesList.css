@@ -1,10 +1,10 @@
 .page-container-companiesList{
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex; 
   flex-direction: column; 
   align-items: center; 
-  justify-content: center;
+  justify-content: flex-start;
   background-color: var(--color-2);
   width: 100vw;
 }
@@ -65,19 +65,16 @@
 
 .table-companiesList {
   width:100%; 
-  border: 2px solid #000;
+  border: 2px solid var(--color-5);
   border-collapse: collapse;
+  font-size: 14px;
+  margin: 20px 0;
 }
 
 .table-companiesList > thead> th{
-  font-size: 16px;
   padding: 10px; 
   text-align: center; 
-  border: 2px solid #000;
-}
-
-.table-companiesList > tbody > tr{
-  word-break: break-all;
+  border: 2px solid var(--color-5);
 }
 
 .table-companiesList > tbody > tr > td > button{
@@ -99,14 +96,18 @@
 .table-companiesList > tbody > tr {
   padding: 10px; 
   text-align: center; 
-  border:2px solid #000;
+  border:2px solid var(--color-5);
 }
 
 .table-companiesList > tbody > tr > td {
+  word-break: break-all;
   padding: 10px; 
   text-align: center; 
-  border:2px solid #000;
-  font-size: 16px;
+  border:2px solid var(--color-5);
+}
+
+.table-companiesList > tbody > tr > td:first-child{
+  word-break: keep-all;
 }
 
 .modal-companyData{
@@ -175,7 +176,21 @@
   transition: ease-in 0.3s;
 }
 
-@media (max-width: 500px){
+@media (max-width: 700px){
+  .table-companiesList th {
+    font-size: 3vw;
+  }
+
+  .table-companiesList .postalCode, 
+  .table-companiesList .email,
+  .CEP,
+  .table-companiesList .E-mail
+  {
+    display: none;
+  }
+}
+
+@media (max-width: 530px){
   .search-container-companiesList{
     margin: 10px; 
     display: flex;
