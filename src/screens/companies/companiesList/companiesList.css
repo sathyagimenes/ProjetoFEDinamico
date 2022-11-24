@@ -67,11 +67,10 @@
   width:100%; 
   border: 2px solid #000;
   border-collapse: collapse;
-  font-size: 2vw;
 }
 
 .table-companiesList > thead> th{
-  font-size: 2vw;
+  font-size: 16px;
   padding: 10px; 
   text-align: center; 
   border: 2px solid #000;
@@ -107,6 +106,7 @@
   padding: 10px; 
   text-align: center; 
   border:2px solid #000;
+  font-size: 16px;
 }
 
 .modal-companyData{
