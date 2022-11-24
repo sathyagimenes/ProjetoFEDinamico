@@ -4,7 +4,7 @@
 }
 main {
     font-family: Arial;
-    min-height: 100vh;
+    min-height: 80vh;
     font-size: 10px;
     margin: 0;
     padding: 0;
@@ -59,8 +59,8 @@ form {
     margin-bottom:50px;
 }
 input[name="inputName"],[name="inputEmail"],[name="inputCEP"],[name="inputTelephone"],[name="inputAddress"] {
-	height: 15px;
-	width: 150px;
+	height: 25px;
+	width: 50%;
 	padding: 3px;
 	font-size: 20px;
 	text-align: center;
@@ -80,13 +80,14 @@ input[name="inputName"],[name="inputEmail"],[name="inputCEP"],[name="inputTeleph
 	transform: scale(1.11);
 	transition: 1s;
 }
+div[name="row2"],[name="row3"],[name="row4"] {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 
 @media (max-width: 700px) {
-	div[name="row2"],[name="row3"],[name="row4"] {
-        display:flex;
-        flex-direction: column;
-        justify-content: space-around;
-	}
+
     container{
         height: 100%;
     }
