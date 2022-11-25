@@ -228,7 +228,6 @@ async function EditCompany(companyUid) {
               uid: groupCode
             }
           });
-        debugger
         CallApi({ method: 'PUT', service: 'establishment', body });
         modal.setAttribute('style', 'display: none');
         Page.companiesList();
