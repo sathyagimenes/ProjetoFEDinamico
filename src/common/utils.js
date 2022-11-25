@@ -283,7 +283,7 @@ async function CallDeleteService(uid, type) {
           });
         await CallApi({ method: 'DELETE', service:'establishment', body });
         setTimeout((() => {
-            Page.companiesList();
+            document.location.reload();
         }), 1000);
     }
 }
